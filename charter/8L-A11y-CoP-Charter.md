@@ -51,7 +51,7 @@ To maintain focus, this CoP defines clear boundaries around what problems we sol
 | Concern | Description |
 |---------|-------------|
 | **Technical Conformance** | Interpretation and implementation of WCAG 2.2 AA standards |
-| **Inclusive Design** | Proactive consideration of diverse user personas (visual, cognitive, motor, auditory impairments) |
+| **Inclusive Design** | Proactive consideration of diverse user personas (visual, cognitive, motor, auditory, speech impairments) |
 | **Tooling and Automation** | Selection, configuration, and maintenance of accessibility testing tools (axe-core, Playwright, LLM review agents) |
 | **Capacity Building** | Internal training, structured mentorship, and resource creation (templates, runbooks, decision records) |
 | **Workflow Integration** | Embedding accessibility into RPI workflows, CI/CD pipelines, and quality gates |
@@ -76,6 +76,8 @@ To maintain focus, this CoP defines clear boundaries around what problems we sol
 The Accessibility Community of Practice exists to **mainstream accessibility as a default quality metric at 8th Light, not an optional add-on.** We build the capability, workflows, and governance that make accessible software the natural outcome of our delivery process, not a heroic effort by specialists.
 
 ### Year 1 SMART Objectives
+
+*SMART = Specific, Measurable, Achievable, Relevant, Time-bound*
 
 1. **Create 6 reusable artifacts by December 2026** (CI/CD templates, acceptance criteria templates, testing protocols, design checklists, decision records, role-specific guides) that reduce time-to-implement accessibility by 40%
 
