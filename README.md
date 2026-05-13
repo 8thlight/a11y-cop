@@ -20,6 +20,15 @@ This repository holds the charter, decisions, and workflows for 8th Light's Acce
 - **Propose changes:** Open an issue or PR
 - **Add artifacts:** Most artifacts are created during working sessions, not in advance
 
+### For CoP Scribes
+
+After a working session, use `/scribe-workflow` in Claude Code to process the transcript. This handles:
+- Transcript cleaning (ASR corrections, name normalization)
+- Slack summary generation
+- PR creation with proper conventions
+
+The skill works with transcripts from Gemini Live and guides you through the entire post-session workflow
+
 ## CoP Contact
 
 **Practice Lead:** Celeste Aronow (caronow@8thlight.com)
