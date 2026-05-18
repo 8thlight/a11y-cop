@@ -66,6 +66,15 @@ If `gh` not installed, include manual PR creation URL.
 
 See [IMPLEMENTATION.md](IMPLEMENTATION.md) for full command templates.
 
+## Retrospective and Feedback (Before Git)
+
+**Mandatory:** `/scribe-retrospective` — auto-analyzes friction, asks approval for changes  
+**Optional:** `/workflow-feedback` — captures subjective feedback, offers handling options (PR/issue/facilitator)
+
+**Sequence:** Main work done → retrospective (always) → ask about feedback (optional) → git operations
+
+See [IMPLEMENTATION.md](IMPLEMENTATION.md) for integration details.
+
 ## Session Transcript Example
 
 **Branch:** `transcript/2026-05-13-cop-session`  
@@ -88,8 +97,3 @@ See [IMPLEMENTATION.md](IMPLEMENTATION.md) for complete workflow example with co
 
 **Automation recommendation:** First-time/learning → Manual (B) | Experienced/speed → Automated (A)
 
-## Related Skills
-
-- **`/scribe-workflow`** — Orchestrator that invokes this skill
-- **`/skill-retrospective`** — May add skill files to commit
-- **`/clean-session-transcript`** — Produces files to commit

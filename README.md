@@ -22,12 +22,11 @@ This repository holds the charter, decisions, and workflows for 8th Light's Acce
 
 ### For CoP Scribes
 
-After a working session, use `/scribe-workflow` in Claude Code to process the transcript. This handles:
-- Transcript cleaning (ASR corrections, name normalization)
-- Slack summary generation
-- PR creation with proper conventions
+After a working session, follow the step-by-step workflow documented in [docs/SCRIBE-WORKFLOW.md](docs/SCRIBE-WORKFLOW.md).
 
-The skill works with transcripts from Gemini Live and guides you through the entire post-session workflow
+**Optional:** Use `/scribe-workflow` in Claude Code for guided assistance. The skill walks you through the workflow and calls the necessary skills when those steps are reached (e.g., `/scribe-retrospective`, `/workflow-feedback`). If following the manual workflow, you can invoke these skills yourself at the appropriate steps.
+
+The documentation is the authoritative source. The skill is a convenience wrapper that follows the same workflow.
 
 ## CoP Contact
 

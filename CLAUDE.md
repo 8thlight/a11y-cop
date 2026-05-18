@@ -12,6 +12,20 @@ This is the public repository for **8th Light's Accessibility Community of Pract
 - Work together, learn together, build together
 - Share knowledge openly (within public/private boundaries)
 
+## Model Preference
+
+**Default model: Haiku** for all CoP scribe workflow tasks (transcript validation, curation, transformation).
+
+**Rationale:** CoP scribe workflows are routine, well-structured tasks that don't require advanced reasoning. Most CoP members access Claude Code via client accounts, where token efficiency is critical. Haiku provides excellent performance for these workflows while minimizing token usage.
+
+**When to use Sonnet or Opus:**
+- Complex reasoning tasks (strategic planning, architectural decisions)
+- Large-scale refactoring across multiple files
+- Novel problem-solving that requires creative approaches
+- Explicit user request for a different model
+
+**Implementation:** The `/transcript-processing` skill and scribe workflow documentation both assume Haiku as the default. Users can override with `/model sonnet` or `/model opus` if needed for specific tasks.
+
 ## Repository Structure
 
 ```
@@ -32,7 +46,7 @@ a11y-cop/
 
 When helping with this repository:
 
-- Use the `/clean-session-transcript` skill for post-session transcript processing
+- Use the `/transcript-processing` skill for post-session transcript processing
 - Future skills will support artifact creation and decision documentation
 - Follow the conventions and workflows detailed below
 
@@ -54,7 +68,7 @@ When helping with this repository:
 ### Scribe Workflow
 
 1. Use Gemini Live for transcription during sessions
-2. Process transcript using `/clean-session-transcript` skill in Claude Code
+2. Process transcript using `/transcript-processing` skill in Claude Code
 3. Post summary to Slack within 48 hours
 4. Create PR with cleaned transcript to `sessions/`
 
