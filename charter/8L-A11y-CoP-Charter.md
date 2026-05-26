@@ -1,7 +1,5 @@
 # Accessibility Community of Practice Charter
 
-> **Draft for Review** (Please provide feedback by our first working session on Wednesday, May 13th, 2026)
-
 This charter defines the Accessibility Community of Practice at 8th Light: how we operate, what problems we solve, and how we measure success.
 
 ---
