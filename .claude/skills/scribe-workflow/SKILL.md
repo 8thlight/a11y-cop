@@ -1,24 +1,26 @@
 ---
 skill: scribe-workflow
-description: Use when processing CoP meeting transcripts through the full scribe workflow from Google Docs to repository commit
-version: 1.0.0
-tags: [cop, transcripts, workflow, gemini]
+description: Use when processing CoP meeting notes through the full scribe workflow from Google Docs to repository commit
+version: 2.0.0
+tags: [cop, session-notes, workflow]
 ---
 
 # CoP Scribe Workflow
 
-Interactive guide for processing CoP meeting transcripts from Google Calendar through to repository commit. Combines manual validation steps (with Gemini prompts) and automated file transformation.
+Interactive guide for processing CoP meeting notes from Google Calendar through to repository commit. Steps 1-3 are manual; Steps 4-7 are automated via Claude Code skills.
 
 ## When to Use
 
-- After a CoP working session when you need to process the meeting transcript
+- After a CoP working session when you need to process the meeting notes
 - When you want step-by-step guidance through the scribe workflow
-- To automate the final file organization and git commit steps
+- To automate file transformation, git commit, and PR creation
 
 ## Workflow Overview
 
-**Manual steps (1-6.1):** User follows documented process with provided Gemini prompts
-**Automated steps (6.2-7):** Skill executes file transformation, git operations, PR creation
+**Manual steps (1-3):** Open notes, move file, export Notes tab
+**Automated steps (4-7):** Claude Code transforms and reviews the file, commits the transcript, runs the retrospective, then creates the PR
+
+---
 
 ## Step-by-Step Guide
 
@@ -27,140 +29,177 @@ Interactive guide for processing CoP meeting transcripts from Google Calendar th
 **Step 1: Open Meeting Notes**
 1. Open Google Calendar, find "A11y CoP Working Session" event
 2. Click attached Google Drive document
+3. Navigate to the **Notes tab** — do not open the Transcript tab
 
 **Step 2: Move to Session Transcripts Folder**
-1. Click folder icon in Google Docs toolbar
+1. Click folder icon in Google Docs toolbar (or File → Move)
 2. Navigate to: A11y Community of Practice → Session Transcripts
-3. Click "Move" and confirm ownership change
+3. Click "Move" and confirm ownership change if prompted
 
 **Ready to continue?** Type `continue` or `next` when done.
 
 ---
 
-### Step 3: Validation (Gemini in Google Docs)
+### Step 3: Export Notes Tab
 
-**Goal:** Correct ASR mishears and speaker name errors.
+**Goal:** Download only the Notes tab as a markdown file.
 
-**Gemini Prompt Location:** `a11y-cop/docs/prompts/gemini-mishears-prompt.md`
+1. Confirm you are on the **Notes tab** (not Transcript)
+2. File → Download → Markdown (.md)
+3. In the export dialog, select **"Current Tab"**
+4. Save to your local machine
 
-**Process:**
-1. Open Gemini sidebar in Google Docs
-2. Copy the mishears prompt and paste into Gemini
-3. Review flagged mishears
-4. Use Edit → Find and Replace to apply corrections
-5. **Iterate:** Start new Gemini conversation, repeat until no new valid results
-6. Verify speaker names are consistent throughout
-7. Validate action items match verbal commitments
-
-**Ready to continue?** Type `continue` or `next` when validation is complete.
+**Ready to continue?** Type `continue` or `next` when the file is saved.
 
 ---
 
-### Step 4: Curation (Gemini in Google Docs)
+### Step 4: Transform and Review Notes (AUTOMATED)
 
-**Goal:** Identify and redact confidential content.
+**Goal:** Format the exported notes and review for issues before committing.
 
-**Gemini Prompt Location:** `a11y-cop/docs/prompts/gemini-redaction-prompt.md`
+Provide the path to your exported file and run:
 
-**Process:**
-1. **Start fresh Gemini conversation** (do not continue from validation prompt)
-2. Copy the redaction prompt and paste into Gemini
-3. Review flagged items (client names, PII, internal metrics, sensitive details)
-4. Apply redactions with generic placeholders or removal
-5. **Iterate:** Start new Gemini conversation, repeat until no new confidential content
+```
+/prepare-cop-notes ~/Downloads/Meeting notes - YYYY-MM-DD.md
+```
 
-**Ready to continue?** Type `continue` or `next` when curation is complete.
+After the skill saves the file to `sessions/YYYY-MM-DD-session-notes.md`, review the output for the following:
 
 ---
 
-### Step 5: Final Scan (Gemini in Google Docs)
+**1. Technical terms and ASR mishears**
 
-**Goal:** Catch missed mishears or confidential content not in standard tables.
+Flag any of these garbled forms and suggest the correct replacement:
 
-**Gemini Prompt Location:** `a11y-cop/docs/prompts/gemini-missing-items-prompt.md`
-
-**Process:**
-1. **Start fresh Gemini conversation** (do not continue from redaction prompt)
-2. Copy the missing items prompt and paste into Gemini
-3. Review flagged items with fresh eyes
-4. Apply corrections or redactions as needed
-5. **CRITICAL:** Document every missed item found:
-   ```
-   Missed Item: [correct term]
-   Appeared as: [misheard version]
-   Search pattern: [how to find it]
-   Fix: [replacement or redaction strategy]
-   Type: [mishear/confidential]
-   ```
-
-Keep your documented missed items ready for the PR description (Step 7).
-
-**Ready for automation?** Type `automate` or `continue` when ready to proceed to automated steps.
+| Correct Term | Common Mishears |
+|---|---|
+| 8th Light | a flight, aflight, aphite, eighth alight, 8 light |
+| WCAG | W CAG, WAG, wicked, WKed, WKEG, we CAG |
+| CPACC | cpac, C-PAC, CPAC |
+| CoP | COP, cop |
+| Playwright | playright, play right |
+| axe | access, ax, acts (when referring to the testing tool) |
+| npm | mpm |
+| ARIA | area, Arya, aria |
+| Pa11y | pally, palley, PA11Y |
+| NVDA | in VDA |
+| JAWS | jaws, Jaws |
+| VoiceOver | voice over, voiceover |
 
 ---
 
-### Step 6: Export and Transformation (AUTOMATED)
+**2. Speaker names**
 
-**From this point, the skill automates the remaining steps.**
+Check that names are used consistently throughout. If the same person appears under two different spellings, **flag it for the scribe to verify** — do not auto-correct. Both spellings may refer to different people at 8th Light.
 
-When you type `automate` or `continue`, I will:
-1. Ask you for the path to your exported markdown file
-2. Process the file (remove timestamps, extract metadata, add frontmatter)
-3. Save to `a11y-cop/sessions/YYYY-MM-DD-session-notes.md`
-4. Create git branch and commit
-5. Push to remote and create PR with template
+| Name | Possible Variation | Note |
+|---|---|---|
+| Shawn | Sean | Both names exist at 8th Light — verify against attendee list |
 
-**What you need to do first:**
-- Export ONLY the Notes tab from Google Docs (File → Download → Markdown)
-- Uncheck "All Tabs", select only "Notes" tab
-- Save the file to your local machine
-
-**Ready?** Provide the path to your exported markdown file when prompted.
+*Add other members here as name variations come up in sessions.*
 
 ---
 
-### Step 7: Pull Request (AUTOMATED)
+**3. Client names — replace with bracketed placeholders**
 
-After file transformation, the skill will:
-1. Create branch: `transcript/YYYY-MM-DD-cop-session`
-2. Add and commit the session notes file
-3. Push to remote repository
-4. Create PR using the session transcript template
+| Client/Project | Common Mishears | Replace With |
+|---|---|---|
+| EnGen | Engine, Engen, N-Gen, in gen, NEN | `[Education Client]` |
+| DYMO | Daimo, DAO, Dinamo, Dynamo | `[Printer Client]` |
+| New Brands | new brands, NewBrands | `[Printer Client's Parent Company]` |
+| Other People's Pixels (OPP) | OP | `[Artist CMS Client]` |
 
-**You will need to complete the PR description manually:**
-- Session Summary (2-3 sentences)
-- Topics Covered (bullet list)
-- Decisions Made (action items)
-- Missed Items (from Step 5 documentation)
-- Scribe Checklist (confirm all steps)
+*Add other clients here as they come up in sessions.*
 
 ---
 
-### Step 8: Retrospective and Workflow Improvement
+**4. PII**
 
-**Goal:** Capture findings from Step 5 and map them to workflow improvements.
+Flag any of the following:
+- Email addresses (except `caronow@8thlight.com` — public-facing practice lead)
+- Phone numbers
+- Home addresses
 
-**Process:**
-1. Run the `/scribe-retrospective` skill to document:
-   - Missed mishears (correct term, appeared as, search pattern, fix)
-   - Missed confidential content (item found, why missed, redaction strategy)
-   - Prompt issues (prompt used, what it missed, suggested improvement)
-2. (Optional) Run the `/workflow-feedback` skill to document other friction points encountered during the scribe process
+---
 
-**Why:** Each scribe session makes the workflow better for the next person. Documenting missed items creates a continuous improvement loop.
+**5. Open-ended scan**
 
-**Ready to complete?** The retrospective outputs update the mishears/redaction tables and identify prompt improvements for future sessions.
+Look for content that may not match the tables above but could still be sensitive:
+- Implicit client references (project descriptions that could identify an unnamed client, industry details that narrow to one company)
+- Internal process details not meant to be public (pricing models, internal tool names, proprietary methodology)
+- People information that could identify someone (job title + first name, team size details for small clients)
+- Accessibility violation counts tied to client names (e.g., "client X had 47 critical errors")
+- Internal client communications or direct quotes from client stakeholders
+- Security vulnerabilities in client systems
+
+---
+
+**Present all findings to the scribe for review. Do not auto-apply any changes.**
+
+For each finding, provide:
+- The exact text
+- Why it's flagged (mishear, client name, PII, sensitivity concern)
+- A suggested correction or replacement
+
+**Ready to continue?** Apply any corrections to the saved file, then type `continue` or `next`.
+
+---
+
+### Step 5: Commit Transcript (AUTOMATED)
+
+**Goal:** Commit the session notes to a branch.
+
+```bash
+git checkout -b transcript/YYYY-MM-DD-cop-session
+git add sessions/YYYY-MM-DD-session-notes.md
+git commit -m "docs(sessions): add YYYY-MM-DD session transcript"
+```
+
+**Ready to continue?** Type `continue` or `next` when done.
+
+---
+
+### Step 6: Retrospective (AUTOMATED)
+
+**Goal:** Capture anything you fixed manually after Claude's review. If any skill tables need updating (client names, mishears, member names), do that now and commit those changes before creating the PR.
+
+Run:
+
+```
+/scribe-retrospective
+```
+
+If skill files were updated, commit them:
+
+```bash
+git add .claude/skills/scribe-workflow/SKILL.md
+git commit -m "chore(scribe): update skill tables from session findings"
+```
+
+**Ready to continue?** Type `continue` or `next` when done.
+
+---
+
+### Step 7: Create Pull Request (AUTOMATED)
+
+**Goal:** Push the branch and open a PR for review.
+
+```bash
+git push origin transcript/YYYY-MM-DD-cop-session
+```
+
+When you create the PR on GitHub, the session transcript template loads automatically. Fill in:
+- **Title:** "Add YYYY-MM-DD CoP session transcript"
+- **Session Summary:** 2-3 sentence overview
+- **Topics Covered:** Bullet list of main discussion points
+- **Decisions Made:** Action items or decisions from the session
+- **Scribe Checklist:** Confirm all steps completed
+
+---
 
 ## Implementation Notes
 
 **Model preference:** Use Haiku for scribe workflows (routine, well-structured tasks). Override with `/model sonnet` if needed.
-
-**Common ASR mishears:**
-- "8th Light" → "a flight", "8 light", "eighth light"
-- "WCAG" → "W CAG", "we CAG"
-- "axe" → "access", "ax"
-- "ARIA" → "area", "Arya"
-- "Playwright" → "playright", "play right"
 
 **File naming:** `YYYY-MM-DD-session-notes.md`
 
@@ -171,6 +210,5 @@ After file transformation, the skill will:
 ## Related Resources
 
 - **Full workflow documentation:** `a11y-cop/docs/SCRIBE-WORKFLOW.md`
-- **Gemini prompts:** `a11y-cop/docs/prompts/`
 - **CoP Shared Drive:** [A11y Community of Practice](https://drive.google.com/drive/folders/0AM6hUKtSmPmgUk9PVA)
 - **Repository:** [github.com/8thlight/a11y-cop](https://github.com/8thlight/a11y-cop)

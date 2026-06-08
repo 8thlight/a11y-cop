@@ -110,7 +110,7 @@ Scopes: sessions, artifacts, decisions, charter
 - Target: Reduce accessibility specialist bottleneck from 60-80% to 20-30%
 - Goal: Create 6 reusable artifacts by December 2026
 
-### When Processing Transcripts
+### When Processing Transcripts and Notes
 
 **Common ASR mishears to fix:**
 - "8th Light" often transcribed as "a flight", "8 light", "eighth light"
@@ -121,7 +121,6 @@ Scopes: sessions, artifacts, decisions, charter
 
 **Speaker name normalization:**
 - Use consistent full names throughout (not "John" in one place, "J" elsewhere)
-- Remove filler words and false starts while preserving meaning
 - Extract: decisions made, action items with owners, artifacts created, parking lot items
 
 ### When Creating Artifacts
