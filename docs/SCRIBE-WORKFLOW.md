@@ -2,6 +2,16 @@
 
 This guide documents the step-by-step workflow for transforming AI-generated CoP meeting notes into vault-ready artifacts. The workflow typically takes 20-30 minutes per session.
 
+**The fastest way to run this workflow:** open Claude Code and run:
+
+```
+/scribe-workflow
+```
+
+It will guide you through all steps interactively. The rest of this document is a manual reference if you need it.
+
+---
+
 > **Notes tab only.** Google Meet creates two document tabs after a session: **Notes** (Gemini's auto-generated summary, 2-5 pages) and **Transcript** (verbatim record, 40+ pages). Work only on the Notes tab. Do not open or touch the Transcript tab.
 
 **Key locations:**
@@ -10,9 +20,11 @@ This guide documents the step-by-step workflow for transforming AI-generated CoP
 
 ---
 
-## Step 1: Open the Meeting Notes from Calendar
+## Step 1: Open and Move Gemini Notes
 
-**Goal:** Access the auto-generated Google Doc from the calendar event.
+**Goal:** Access the auto-generated Google Doc from the calendar event and move it to the shared CoP drive.
+
+**Why:** Gemini creates the document in the calendar event owner's personal Drive. Moving it to the shared Session Transcripts folder makes it accessible to all CoP members.
 
 1. **Open Google Calendar** and navigate to the day of the CoP working session
 
@@ -20,75 +32,87 @@ This guide documents the step-by-step workflow for transforming AI-generated CoP
 
 3. **Click on the attached Google Drive document** labeled with the meeting notes
 
-   ![Calendar event details showing attached Google Doc](screenshots/calendar-details-a11y-cop-working-session.png)
+   <img src="screenshots/calendar-details-a11y-cop-working-session.png" alt="Calendar event details showing attached Google Doc" width="300">
 
 4. **The document opens** in a new tab with two tabs: Notes and Transcript. Navigate to the **Notes tab** — this is the only tab you will work with.
 
----
+5. **Click the folder icon** in the toolbar (or use File → Move)
 
-## Step 2: Move File to Session Transcripts Folder
+   <img src="screenshots/file-move.png" alt="File move icon in Google Docs toolbar" width="200">
 
-**Goal:** Move the Google Doc from the calendar event owner's personal Drive to the shared 8th Light A11y Drive.
+6. **Navigate to:** A11y Community of Practice → Session Transcripts
 
-**Why:** Gemini creates the document in the calendar event owner's personal Drive. Moving it to the shared Session Transcripts folder makes it accessible to all CoP members.
+7. **Click "Move" to confirm** the new location
 
-1. **In the open Google Doc, click the folder icon** in the top toolbar (or use File → Move)
+   <img src="screenshots/move-prompt-session-transcripts.png" alt="Move dialog showing Session Transcripts folder selection" width="300">
 
-   ![File move icon in Google Docs toolbar](screenshots/file-move.png)
+8. **Confirm ownership change** if prompted (changing from calendar event owner to shared drive)
 
-2. **Navigate to:** A11y Community of Practice → Session Transcripts
+   <img src="screenshots/change-ownership-confirmation-modal.png" alt="Change ownership confirmation modal" width="300">
 
-3. **Click "Move" to confirm** the new location
+9. **Verify the move succeeded** — you'll see a confirmation toast on the bottom left of the screen.
 
-   ![Move dialog showing Session Transcripts folder selection](screenshots/move-prompt-session-transcripts.png)
-
-4. **Confirm ownership change** if prompted (changing from calendar event owner to shared drive)
-
-   ![Change ownership confirmation modal](screenshots/change-ownership-confirmation-modal.png)
-
-5. **Verify the move succeeded** — you'll see a confirmation toast
-
-   ![Move confirmation toast notification](screenshots/move-file-confirmation-toast.png)
+   <img src="screenshots/move-file-confirmation-toast.png" alt="Move confirmation toast notification" width="350">
 
 ---
 
-## Step 3: Export Notes Tab
+## Step 2: Export Notes Tab
 
 **Goal:** Download the Notes tab as a markdown file for processing.
 
 1. **Make sure you are on the Notes tab** (not the Transcript tab)
 
+   <img src="screenshots/notes-tab-selected.png" alt="Notes tab selected" width="200">
+
+
 2. **File → Download → Markdown (.md)**
 
-   ![File download to Markdown menu](screenshots/file-download-markdown.png)
+   <img src="screenshots/file-download-markdown.png" alt="File download to Markdown menu" width="300">
 
 3. **In the export dialog, select "Current Tab"** to export only the Notes tab
 
-   ![Download modal showing tab selection](screenshots/download-modal-current-tab.png)
+   <img src="screenshots/download-modal-current-tab.png" alt="Download modal showing tab selection" width="200">
 
 4. **Click Export** and save to your local machine
 
 ---
 
-## Step 4: Transform and Review Notes with Claude Code
+## Step 3: Transform and Review Notes with Claude Code
 
 **Goal:** Format the exported notes, add frontmatter, and review for issues before committing.
 
-In Claude Code, run the `/prepare-cop-notes` skill with the path to your exported file:
+Run `/prepare-cop-notes` with the path to your exported file:
 
 ```
-/prepare-cop-notes ~/Downloads/Meeting notes - YYYY-MM-DD.md
+/prepare-cop-notes /path/to/your/exported-file.md
 ```
 
-The skill will:
+The filename Google Docs generates varies. Use whatever it was saved as on your machine (e.g. `~/Downloads/A11y\ CoP\ Working\ Session\ -\ 2026_05_27\ 10_29\ EDT\ -\ Notes\ by\ Gemini.md`).
+
+It will:
 - Remove transcript section (if accidentally included in export)
-- Remove timestamp references (e.g., `([00:05:12](#00:05:12))`)
-- Extract the session date and attendee names from the document
+- Remove timestamp references — both simple (`([00:05:12](#00:05:12))`) and Google Docs deep-link formats
+- Extract the session date and attendee names (non-strikethrough invitees didn't decline but may not have attended — confirm the list)
+- Remove Gemini UI artifacts (feedback prompts, survey links, section labels)
+- Review content for speaker name inconsistencies, client names, and PII — report all findings before saving
 - Add the required frontmatter
 - Save to `a11y-cop/sessions/YYYY-MM-DD-session-notes.md`
-- Review the output for speaker name inconsistencies, client name redaction, and PII — and report findings for your review
 
-Review any flagged items and apply corrections directly in the saved file before committing.
+**Address all flagged items before confirming the save.**
+
+---
+
+## Step 4: Retrospective
+
+**Goal:** Capture anything you fixed manually and update the workflow for future scribes.
+
+Run:
+
+```
+/scribe-retrospective
+```
+
+The skill will ask what you corrected manually after Claude's review — name spellings, client names, or anything else not caught automatically. If any skill tables need updating, it will apply those changes now.
 
 ---
 
@@ -96,34 +120,38 @@ Review any flagged items and apply corrections directly in the saved file before
 
 **Goal:** Version the notes and request review.
 
-**Tool:** Git and GitHub
+**If using Claude Code:**
+```
+/using-git
+```
 
-**Steps:**
+The skill will show you what it found and confirm the commit split before proceeding:
+- **Commit 1:** session notes
+- **Commit 2:** skill improvements from the retrospective (if any)
 
-1. **Create git branch and commit:**
+**Manually (replace `2026-05-27` with the session date):**
+```bash
+git checkout -b transcript/2026-05-27-cop-session
+git add sessions/2026-05-27-session-notes.md
+git commit -m "docs(sessions): add 2026-05-27 session notes"
 
-   **Optional automation:** Invoke the `/using-git` skill in Claude Code to automate this process or generate copy/paste commands.
+# If anything changed during the retrospective:
+git add .claude/skills/
+git commit -m "chore(scribe): apply retro improvements"
 
-   If you prefer to run the commands manually:
+git push -u origin transcript/2026-05-27-cop-session
+gh pr create --title "Add 2026-05-27 CoP session transcript"
+```
 
-   ```bash
-   git checkout -b transcript/YYYY-MM-DD-cop-session
-   git add sessions/YYYY-MM-DD-session-notes.md
-   git commit -m "docs(sessions): add YYYY-MM-DD session transcript"
-   git push origin transcript/YYYY-MM-DD-cop-session
-   ```
+When the PR opens on GitHub, the session transcript template loads automatically. Fill in:
 
-2. **Create pull request:**
+- **Title:** "Add YYYY-MM-DD CoP session transcript"
+- **Session Summary:** 2-3 sentence overview
+- **Topics Covered:** Bullet list of main discussion points
+- **Decisions Made:** Action items or decisions from the session
+- **Scribe Checklist:** Confirm all steps completed
 
-   When you create the PR on GitHub, the session transcript template will automatically load. Fill in:
-
-   - **Title:** "Add YYYY-MM-DD CoP session transcript"
-   - **Session Summary:** 2-3 sentence overview
-   - **Topics Covered:** Bullet list of main discussion points
-   - **Decisions Made:** Action items or decisions from the session
-   - **Scribe Checklist:** Confirm all steps completed
-
-   Request review from another CoP member.
+Request review from another CoP member.
 
 ---
 
@@ -131,7 +159,8 @@ Review any flagged items and apply corrections directly in the saved file before
 
 Before marking your scribe work complete:
 
-- [ ] All five workflow steps completed
+- [ ] All five workflow steps completed (Open and move Gemini notes, Export notes tab, Transform and review, Retrospective, Commit and PR)
+- [ ] Retrospective run and any improvements committed
 - [ ] Speaker names consistent and correct
 - [ ] Client names redacted with bracketed placeholders (e.g., `[Education Client]`)
 - [ ] No PII or confidential content in committed file

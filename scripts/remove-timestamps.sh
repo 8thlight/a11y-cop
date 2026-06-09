@@ -30,9 +30,11 @@ fi
 # Create a temporary file for the cleaned content
 TEMP_FILE=$(mktemp)
 
-# Remove timestamp pattern using perl for reliable regex support
-# Pattern: space + ([HH:MM:SS](#HH:MM:SS))
-perl -pe 's/ \(\[[0-9]{2}:[0-9]{2}:[0-9]{2}\]\(#[0-9]{2}:[0-9]{2}:[0-9]{2}\)\)//g' "$FILE_PATH" > "$TEMP_FILE"
+# Remove timestamp patterns using perl for reliable regex support
+# Pattern 1: space + ([HH:MM:SS](#HH:MM:SS))
+# Pattern 2: space + ([HH:MM:SS](?tab=...#heading=h.xxx)) — Google Docs deep links
+perl -pe 's/ \(\[[0-9]{2}:[0-9]{2}:[0-9]{2}\]\(#[0-9]{2}:[0-9]{2}:[0-9]{2}\)\)//g;
+          s/ \(\[[0-9]{2}:[0-9]{2}:[0-9]{2}\]\(\?[^)]*\)\)//g' "$FILE_PATH" > "$TEMP_FILE"
 
 # Replace original file with cleaned content
 mv "$TEMP_FILE" "$FILE_PATH"

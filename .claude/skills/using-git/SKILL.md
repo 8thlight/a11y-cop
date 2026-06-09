@@ -8,7 +8,9 @@ description: >
 
 # Using Git
 
-Authoritative guidance for git and GitHub operations in the a11y-cop repository. See [IMPLEMENTATION.md](IMPLEMENTATION.md) for detailed command sequences, examples, and troubleshooting.
+Authoritative guidance for git and GitHub operations in the a11y-cop repository.
+
+**Before proceeding:** Read `.claude/skills/using-git/IMPLEMENTATION.md` for command sequences, examples, and troubleshooting.
 
 ## When to Use
 
@@ -42,29 +44,33 @@ Example: `docs(sessions): add cleaned transcript for 2026-05-13 CoP session`
 
 ## Workflow Options
 
-Before executing any git operations, ALWAYS ask:
+Before executing any git operations, run `git status` to see what changed. If `sessions/` files AND other changed files (e.g. `.claude/skills/`, `docs/`, `scripts/`) are both present, show the proposed split and confirm before proceeding:
 
 ```
-I can commit, push, and create the PR for you. Would you like me to:
-- A) Automate it (I'll run the git commands)
-- B) I'll do it manually (you give me the commands to run)
+I found changes to commit:
+
+Commit 1 (session notes):
+  sessions/2026-05-27-session-notes.md
+
+Commit 2 (retro improvements):
+  .claude/skills/scribe-workflow/SKILL.md
+  docs/SCRIBE-WORKFLOW.md
+
+Anything look wrong before I proceed?
 ```
 
-### Option A - Automated
+If only one category of files is present, proceed with a single commit.
 
-1. Check for `gh` CLI: `which gh`
-2. If installed, execute: checkout branch → add → commit → push → create PR
-3. If NOT installed, offer: commit + push only (manual PR creation)
+Then show the fully filled-in commands (real date, branch name, filenames — no placeholders) and ask:
 
-See [IMPLEMENTATION.md](IMPLEMENTATION.md) for full command sequence.
+```
+Shall I run these, or would you like to copy-paste them yourself?
+```
 
-### Option B - Manual
+- If run: execute the commands
+- If copy-paste: the user already has everything they need — all values are filled in
 
-Provide copy-paste-ready commands for: checkout → add → commit → push → PR creation.
-
-If `gh` not installed, include manual PR creation URL.
-
-See [IMPLEMENTATION.md](IMPLEMENTATION.md) for full command templates.
+Check for `gh` CLI before proceeding: `which gh`. If not installed, skip `gh pr create` and provide the manual PR URL instead.
 
 ## Retrospective and Feedback (Before Git)
 
@@ -93,7 +99,5 @@ See [IMPLEMENTATION.md](IMPLEMENTATION.md) for complete workflow example with co
 
 ## Quick Reference
 
-**Permission template:** "I can commit, push, and create the PR. A) Automate it, or B) I'll do it manually?"
-
-**Automation recommendation:** First-time/learning → Manual (B) | Experienced/speed → Automated (A)
+**Permission template:** Show fully filled-in commands → "Shall I run these, or would you like to copy-paste them yourself?"
 

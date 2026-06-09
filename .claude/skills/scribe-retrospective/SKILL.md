@@ -11,7 +11,7 @@ Lightweight post-session check to capture anything Claude missed and feed it bac
 
 ## When to Use
 
-After committing the session transcript (Step 5), before creating the PR (Step 7).
+After Step 3 (Transform and Review Notes), before Step 5 (Commit and Create PR).
 
 ## Core Pattern
 
@@ -43,15 +43,17 @@ If nothing — just say "no" and we'll move on.
 
 ## Step 2: Map Findings to Tables
 
-For each item the scribe fixed, identify where it belongs in the scribe-workflow skill:
+For each item the scribe fixed, identify which skill owns that concern. The principle: `scribe-workflow/SKILL.md` is the orchestrator — it says which skills to run in what order, not how to review content. Detailed tables and review logic live in the skill that does the work.
 
-| Finding Type | Target Table |
+| Finding Type | Target File |
 |---|---|
-| Client name or project name | Client names table (Step 4, section 3) |
-| Technical term or ASR mishear | Technical terms table (Step 4, section 1) |
-| Speaker name variation | Speaker names table (Step 4, section 2) |
-| PII pattern | PII section (Step 4, section 4) |
-| Other sensitivity | Open-ended scan bullets (Step 4, section 5) |
+| Client name or project name | `prepare-cop-notes/SKILL.md` — "Other items to check" → client names table |
+| Technical term or ASR mishear | `prepare-cop-notes/SKILL.md` — "Technical terms and ASR mishears" table |
+| Speaker name variation | `prepare-cop-notes/SKILL.md` — "Names to check" section |
+| PII pattern | `prepare-cop-notes/SKILL.md` — PII bullet |
+| Other sensitivity | `prepare-cop-notes/SKILL.md` — "Open-ended scan" bullets |
+| Step ordering or which skill to invoke | `scribe-workflow/SKILL.md` — orchestration only |
+| Git/commit/PR conventions | `using-git/SKILL.md` or `using-git/IMPLEMENTATION.md` |
 
 Draft the proposed additions (new rows or bullet points only — do not restructure).
 
@@ -70,7 +72,7 @@ Proposed skill updates:
 Apply these changes? (yes/no)
 ```
 
-**If yes:** Edit `.claude/skills/scribe-workflow/SKILL.md` with the new rows/entries. Confirm what was added.
+**If yes:** Edit the appropriate skill file (see table above) with the new rows/entries. Confirm what was added and where.
 
 **If no:** "Findings noted, not applied — proceed to Step 7 (PR)."
 
@@ -113,5 +115,5 @@ Tell the scribe: "PR summary saved to `.tmp/retro-YYYY-MM-DD.md`. Paste it into 
 
 ## Related Skills
 
-- **`/scribe-workflow`** — calls this skill at Step 6
+- **`/scribe-workflow`** — calls this skill at Step 4
 - **`/using-git`** — used at Step 7 after this completes

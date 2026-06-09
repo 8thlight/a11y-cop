@@ -68,9 +68,11 @@ When helping with this repository:
 ### Scribe Workflow
 
 1. Use Gemini Live for transcription during sessions
-2. Process transcript using `/transcript-processing` skill in Claude Code
+2. Process notes using `/scribe-workflow` skill in Claude Code (runs `/prepare-cop-notes`, `/scribe-retrospective`, and `/using-git`)
 3. Post summary to Slack within 48 hours
-4. Create PR with cleaned transcript to `sessions/`
+4. Create PR with cleaned notes to `sessions/`
+
+**Keeping workflow docs in sync:** `docs/SCRIBE-WORKFLOW.md` (human-facing reference) and `.claude/skills/scribe-workflow/SKILL.md` (Claude-facing skill) describe the same workflow. When updating one, update the other.
 
 ### File Naming Conventions
 
