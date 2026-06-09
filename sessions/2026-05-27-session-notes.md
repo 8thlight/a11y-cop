@@ -49,7 +49,7 @@ The group plans to propose company-wide accessibility objectives to ensure prote
 
 - [ ] \[The group\] Secure Leadership Buy-in: Advocate for accessibility work and protected time to managers such as Shawn, Jon W, and Doug to secure project buy-in.
 
-- [ ] \[Daisy Mølving\] Research Case Study: Investigate the history of the [Automobile Client] to identify past accessibility work achievements.
+- [ ] \[Daisy Mølving\] Research Case Study: Investigate the history of the [Automotive Client] to identify past accessibility work achievements.
 
 - [ ] \[Celeste Aronow\] Present at Town Hall: Deliver a presentation on the Community of Practice at the town hall meeting on the 12th.
 
@@ -87,7 +87,7 @@ The group plans to propose company-wide accessibility objectives to ensure prote
 
 * **Leadership Advocacy and Connection**: To foster support, the group discussed identifying and connecting with specific managers who can champion accessibility. Celeste Aronow noted that they are working to secure buy-in from their manager, Shawn, and encouraged others to do the same. Daisy Mølving identified Jon W as a potential advocate within the design leadership, and the group agreed that having multiple people advocate to leadership across different departments would increase the likelihood of success. Tim Dorr also noted that they are in conversations with leadership regarding potential project work where accessibility could be integrated.
 
-* **Artifact Collection and Proof Points**: Participants acknowledged that they lack documented evidence or case studies to prove their accessibility expertise to clients and leadership. Tim Dorr suggested that they must collect artifacts from completed projects to provide concrete proof points rather than relying on promises. Celeste Aronow mentioned that while they could look at past work, such as the [Automobile Client] project, previous teams often failed to document these efforts as accessibility achievements.
+* **Artifact Collection and Proof Points**: Participants acknowledged that they lack documented evidence or case studies to prove their accessibility expertise to clients and leadership. Tim Dorr suggested that they must collect artifacts from completed projects to provide concrete proof points rather than relying on promises. Celeste Aronow mentioned that while they could look at past work, such as the [Automotive Client] project, previous teams often failed to document these efforts as accessibility achievements.
 
 * **Strategic Objectives**: Concluding the discussion, Daisy Mølving proposed that establishing accessibility as a company-wide or departmental objective key result would help employees align their personal time with organizational goals. Celeste Aronow agreed, noting that such a change would likely be the most effective way to address the systemic issue of protected time and resource allocation.
 

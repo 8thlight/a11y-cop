@@ -1,6 +1,6 @@
 ---
 name: prepare-cop-notes
-version: 1.9.0
+gin areversion: 1.9.0
 description: >
   Use when a CoP scribe has exported the Notes tab from Google Docs as markdown 
   and needs to add frontmatter and save it to the sessions/ directory.
@@ -188,7 +188,7 @@ Check for garbled forms of technical terms. Unambiguous corrections (e.g., "a fl
   | DYMO | Daimo, DAO, Dinamo, Dynamo | `[Printer Client]` |
   | New Brands | new brands, NewBrands | `[Printer Client's Parent Company]` |
   | Other People's Pixels (OPP) | OP | `[Artist CMS Client]` |
-  | Cars.com | Cars project, cars.com | `[Automobile Client]` |
+  | Cars.com | Cars project, cars.com | `[Automotive Client]` |
 
   For clients not in the table, suggest replacing with `[Client Name]` or `[Project Name]` and prompt the scribe to confirm.
 
