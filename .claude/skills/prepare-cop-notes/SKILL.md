@@ -1,6 +1,6 @@
 ---
 name: prepare-cop-notes
-gin areversion: 1.9.0
+version: 1.9.0
 description: >
   Use when a CoP scribe has exported the Notes tab from Google Docs as markdown 
   and needs to add frontmatter and save it to the sessions/ directory.
