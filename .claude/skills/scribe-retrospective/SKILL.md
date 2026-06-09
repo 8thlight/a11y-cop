@@ -7,7 +7,9 @@ description: >
 
 # Scribe Retrospective
 
-Lightweight post-session check to capture anything Claude missed and feed it back into the workflow for next time.
+Automated post-session analysis to identify friction points and capture anything Claude missed — feed it back into the workflow for next time.
+
+**Before proceeding:** Read `.claude/skills/scribe-retrospective/IMPLEMENTATION.md` for friction signal patterns, routing examples, and edge case handling.
 
 ## When to Use
 
@@ -15,16 +17,17 @@ After Step 3 (Transform and Review Notes), before Step 5 (Commit and Create PR).
 
 ## Core Pattern
 
-1. Ask one question
-2. If fixes were made, propose table updates
-3. Confirm and apply
+1. Ask what was fixed manually
+2. Passively scan the conversation for friction signals (do not ask the scribe to do this)
+3. If fixes or friction found, propose table updates
+4. Confirm and apply
 
 ---
 
 ## Step 1: Ask
 
 ```
-After Claude's review in Step 4, did you manually fix anything in the session notes?
+After Claude's review in Step 3, did you manually fix anything in the session notes?
 
 For example:
 • A client name Claude didn't catch
@@ -35,7 +38,7 @@ For example:
 If nothing — just say "no" and we'll move on.
 ```
 
-**If no:** Respond "No improvements identified — proceed to Step 7 (PR)." Done.
+**If no:** Proceed to conversation scan. If nothing found there either, respond "No improvements identified — proceed to Step 5 (Commit and PR)."
 
 **If yes:** Continue to Step 2.
 
@@ -74,7 +77,7 @@ Apply these changes? (yes/no)
 
 **If yes:** Edit the appropriate skill file (see table above) with the new rows/entries. Confirm what was added and where.
 
-**If no:** "Findings noted, not applied — proceed to Step 7 (PR)."
+**If no:** "Findings noted, not applied — proceed to Step 5 (Commit and PR)."
 
 ---
 
@@ -91,7 +94,7 @@ The following items were caught manually after Claude's review and corrected bef
 |---|---|---|
 | [Mishear / Client name / PII / etc.] | "[original text]" | "[corrected text]" |
 
-_These have been added to the scribe-workflow skill tables for future sessions._
+_These have been added to the prepare-cop-notes skill tables for future sessions._
 ```
 
 If nothing was fixed manually, write:
@@ -108,7 +111,7 @@ Tell the scribe: "PR summary saved to `.tmp/retro-YYYY-MM-DD.md`. Paste it into 
 
 ## Critical Rules
 
-- One question only — do not ask the scribe to review the conversation for friction
+- Conversation scan is passive — never ask the scribe to identify friction signals, do it yourself
 - Never restructure existing tables, only append
 - Present ALL changes before asking for approval
 - If nothing to update, say so and move on immediately
@@ -116,4 +119,4 @@ Tell the scribe: "PR summary saved to `.tmp/retro-YYYY-MM-DD.md`. Paste it into 
 ## Related Skills
 
 - **`/scribe-workflow`** — calls this skill at Step 4
-- **`/using-git`** — used at Step 7 after this completes
+- **`/using-git`** — used at Step 5 after this completes

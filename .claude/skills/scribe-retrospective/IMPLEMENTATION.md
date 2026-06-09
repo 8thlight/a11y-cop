@@ -1,278 +1,126 @@
 # Scribe Retrospective - Implementation Guide
 
-## Step 1: Gemini Validation Findings
+## Overview
 
-### Why This Comes First
+The retrospective has two jobs:
+1. **Ask** — what did the scribe fix manually that Claude missed?
+2. **Scan** — look back through the conversation for friction signals the scribe may not have noticed
 
-The Gemini validation iteration (step 5 of scribe workflow) often reveals systematic gaps that affect all future scribe sessions. By collecting these findings first, we can:
-- Prevent the same friction in future sessions
-- Prioritize high-impact improvements
-- Capture insights while they're fresh in the scribe's mind
+Both feed into skill table updates and a `.tmp/` PR summary.
 
-### What to Ask For
+---
 
-**Template question:**
-```
-Before we proceed, can you share the list of findings from step 5 
-(the friction points you identified during the Gemini prompt validation iteration)?
+## Conversation Friction Signals
 
-These might include:
-• Missed/misheard words that weren't in the find/replace list
-• Patterns that required multiple correction rounds
-• Ambiguous phrases that slowed validation
-• Any other friction during the Gemini prompt refinement
+Scan the conversation automatically — do not ask the scribe to identify these. Look for:
 
-If there were no significant findings, just let me know!
-```
+| Signal | What it Means | Example |
+|--------|---------------|---------|
+| "Wait, I meant..." | Misunderstanding in skill instructions | User: "Wait, I meant the Notes tab, not Transcript" |
+| "How do I...?" | Step was unclear | User: "How do I export as markdown?" |
+| Multiple clarifications on same point | Instruction not sticky | 3+ messages to clarify what "export" means |
+| Scribe volunteered info without being asked | Skill didn't ask the right question upfront | User provides file path without being prompted |
+| Repeated corrections | Same term missed multiple times | "Sean" corrected to "Shawn" in 3 places |
+| Confusion about file path/name | Skill instructions too generic | User unsure which file to pass to `/prepare-cop-notes` |
 
-### Processing Findings
+---
 
-For each finding, determine:
+## Processing Findings
 
-| Finding Type | Affected Skill(s) | Edit Location |
-|--------------|-------------------|---------------|
-| Missed ASR mishear | `clean-session-transcript` | Find/replace tables in Phase 1 or 2 |
-| Ambiguous phrase pattern | `clean-session-transcript` | Validation section or examples |
-| Prompt unclear | Prompt template in workflow | Prompt text or instructions |
-| Multiple correction rounds | `scribe-workflow` | Step 5 guidance or tips |
+### Routing Table
 
-### Example: Processing Missed Word
+For each finding (from the scribe's manual fixes OR the conversation scan), identify which skill owns it:
 
-**Finding:**
-```
-User: "Gemini kept transcribing 'Deque' as 'DQ' or 'deck'. 
-Had to run the validation prompt 3 times to catch all instances."
-```
+| Finding Type | Target File |
+|---|---|
+| Client name or project name | `prepare-cop-notes/SKILL.md` — "Other items to check" → client names table |
+| Technical term or ASR mishear | `prepare-cop-notes/SKILL.md` — "Technical terms and ASR mishears" table |
+| Speaker name variation | `prepare-cop-notes/SKILL.md` — "Names to check" section |
+| PII pattern | `prepare-cop-notes/SKILL.md` — PII bullet |
+| Other sensitivity | `prepare-cop-notes/SKILL.md` — "Open-ended scan" bullets |
+| Step ordering or which skill to invoke | `scribe-workflow/SKILL.md` — orchestration only |
+| Git/commit/PR conventions | `using-git/SKILL.md` or `using-git/IMPLEMENTATION.md` |
+
+### Example: Processing a Missed Client Name
+
+**Finding:** Scribe manually replaced "Cars.com" with "[Automotive Client]" — wasn't in the table.
 
 **Analysis:**
-- Type: Missed ASR mishear
-- Affected skill: `clean-session-transcript`
-- Location: Known ASR mishears table (Phase 2)
+- Type: Client name
+- Target: `prepare-cop-notes/SKILL.md`, client names table
 
 **Proposed edit:**
 ```
-Add to Known ASR Mishears table:
-| Deque | DQ, deck, dec |
+Add to client names table:
+| Cars.com | Cars project, cars.com | `[Automotive Client]` |
 ```
 
-**Why this matters:** Deque is the company name for a major a11y vendor — will likely appear in future CoP sessions.
+### Example: Processing a Conversation Friction Signal
 
-### Example: Processing Prompt Issue
-
-**Finding:**
-```
-User: "The Gemini prompt asked to 'check for missed words' but didn't 
-specify whether to look for patterns or individual errors. Took several 
-rounds to understand what level of detail was needed."
-```
+**Finding:** Scribe asked "which file do I pass to prepare-cop-notes?" after seeing the skill's example path.
 
 **Analysis:**
-- Type: Ambiguous prompt instruction
-- Affected skill: `clean-session-transcript` or prompt template
-- Location: Step 5 instructions
+- Type: Unclear instruction
+- Target: `scribe-workflow/SKILL.md` Step 3, or `prepare-cop-notes/SKILL.md` usage line
 
 **Proposed edit:**
 ```
-Add clarification to prompt template:
-"Scan for patterns of ASR errors (e.g., 'access' → 'axe' appears 5+ times) 
-and flag individual critical mishears (company names, tool names, key terms)."
+Clarify the usage example to show the actual Gemini export filename format:
+/prepare-cop-notes '/Users/yourname/Downloads/A11y CoP Working Session - YYYY_MM_DD HH_MM EDT - Notes by Gemini.md'
 ```
 
-### No Findings Scenario
+---
 
-**User response:**
+## Edge Cases
+
+### Scribe Says "Nothing" but Conversation Shows Friction
+
+**Approach:** Trust the user — don't insist.
+
 ```
-User: "No major issues — the prompts worked well this time."
-```
-
-**Your response:**
-```
-Great! No step 5 improvements needed. Now scanning conversation for other friction points...
-```
-
-## Detailed Friction Signals
-
-### Gemini Validation Indicators (Step 5)
-
-| Signal | What it Means | Example |
-|--------|---------------|---------|
-| Multiple prompt rounds | Prompt wasn't clear | "Had to run the prompt 3 times to get it right" |
-| Missed terminology | Not in find/replace list | "Gemini kept missing 'DYMO' → 'Daimo'" |
-| Unclear validation scope | Ambiguous instructions | "Wasn't sure if I should check for patterns or individual errors" |
-| Manual correction needed | Prompt didn't catch it | "Had to manually fix 'EnGen' after Gemini" |
-
-### Conversation Indicators
-
-| Signal | What it Means | Example |
-|--------|---------------|---------|
-| "Wait, I meant..." | Misunderstanding | User: "Wait, I meant the file in Drive, not the local one" |
-| "Actually, I need to..." | Missing step | User: "Actually, I need to check the file name format first" |
-| "How do I...?" | Unclear instruction | User: "How do I export as markdown?" |
-| "That didn't work" | Failed assumption | User: "That didn't work — the file is in a different folder" |
-| Multiple clarifications | Unclear step | 3+ messages to clarify what "export" means |
-| User provides unrequested info | Missing upfront question | User volunteers file path without being asked |
-
-### Workflow Indicators
-
-| Signal | What it Means | Example |
-|--------|---------------|---------|
-| Repeated steps | Step not sticky | User exports file twice because first location was wrong |
-| Duplicate information | Not captured properly | User gives file path 2+ times in conversation |
-| Incorrect assumptions | Skill didn't ask | Assumed file was in Downloads, actually in Drive |
-| Poor edge case handling | Unexpected scenario | File already exists, skill didn't handle gracefully |
-
-## Edge Cases and Handling
-
-### User Says "No Findings" but Conversation Shows Gemini Friction
-
-**Scenario:** Multiple clarifications about Gemini prompts occurred, but user says "no findings"
-
-**Approach:** Trust the user
-```
-Got it — no step 5 improvements needed. Now scanning conversation for other friction points...
+Got it — no manual fixes. I did notice [brief description of friction signal] in our conversation. 
+Want me to propose an improvement for that, or skip it?
 ```
 
 **Do NOT:**
-- Insist there were findings
-- List the friction signals you observed
+- List every friction signal you found
 - Ask "are you sure?"
-
-**Rationale:** User may not perceive friction, or may not want to spend time on it
-
-### Finding is Environmental, Not Skill-Related
-
-**Examples:**
-- "Gemini was slow to respond" (service latency)
-- "I lost my place in the transcript" (user navigation)
-- "My internet cut out during validation" (network issue)
-
-**Response:**
-```
-Understood — that's an environmental issue, not something the skill can address. 
-Moving on to conversation scan...
-```
-
-**Do NOT propose skill edits for environmental issues**
+- Apply changes without approval
 
 ### Finding Affects Multiple Skills
 
-**Scenario:** Missed word affects both `clean-session-transcript` (find/replace table) and prompt template
+Present together and get a single approval:
 
-**Approach:**
 ```
-I noticed "Deque" was consistently transcribed as "DQ". This affects:
+"Cars.com" wasn't caught automatically. This affects:
+• prepare-cop-notes: Add to client names table
+• scribe-workflow: (no change needed — review tables live in prepare-cop-notes)
 
-• clean-session-transcript: Add "Deque" → "DQ" to Known ASR Mishears table
-• Prompt template: Update example list to include "Deque"
-
-Would you like me to update both?
+Apply both? (yes/no)
 ```
 
-**Get single approval for batch edits** — don't ask separately for each skill
+### Finding is Environmental, Not Skill-Related
 
-### Finding is About Skill Structure
+Examples: slow network, fire alarm interruption, Gemini outage.
 
-**User says:**
 ```
-"The find/replace table is getting really long — hard to scan for what I need."
-```
-
-**Response:**
-```
-That's a great point, but restructuring is a bigger task than we should tackle in this PR. 
-I'll note it for a future refactoring session.
-
-For now, should we proceed with any specific term additions?
+That sounds environmental — not something the skill can address. Moving on.
 ```
 
-**Do NOT:**
-- Attempt major restructuring mid-workflow
-- Move content without careful review
-- Change organization without testing
+Do NOT propose skill edits for environmental issues.
 
-### User Identifies Friction but Doesn't Want Edits
+### Finding is a Structural Issue (Too Big for This PR)
 
-**User says:**
-```
-"Yeah, the prompt was confusing, but I don't want to update it right now."
-```
+**User says:** "The client names table is getting hard to scan."
 
-**Response:**
 ```
-Got it — I'll note that for future improvement. Moving on to conversation scan...
+That's worth addressing, but restructuring is bigger than a table row addition. 
+I'll note it — for now, should we add the specific term that was missing?
 ```
 
-**Do NOT:**
-- Press for why they don't want edits
-- Edit the skill anyway
-- Ask if they're sure
+Do NOT restructure or reorganize skill files mid-retro.
 
-## Skill Edit Workflow Details
-
-### Step 1: Read Current Skill
-
-```bash
-Read file_path: .claude/skills/<skill-name>/SKILL.md
-```
-
-**Scan for:** The section/instruction that caused friction
-
-### Step 2: Apply Edits
-
-Use Edit tool for targeted changes:
-- Add missing ASR mishear to find/replace table
-- Clarify unclear prompt instruction
-- Add edge case handling
-- Update example to match common use
-
-**Example edit for Gemini finding:**
-```
-Old (Known ASR Mishears table):
-| axe (tool) | access, ax, acts |
-
-New:
-| axe (tool) | access, ax, acts |
-| Deque | DQ, deck, dec |
-```
-
-**Example edit for conversation finding:**
-```
-Old:
-"Export the file as markdown"
-
-New:
-"Export the file: File → Download → Markdown (.md)"
-```
-
-### Step 3: Explain Changes
-
-**Template:**
-```
-I've updated [skill-name] to [change]. This should [benefit].
-```
-
-**Example (Gemini finding):**
-```
-I've updated clean-session-transcript to add "Deque → DQ/deck" to the Known ASR Mishears table. 
-This should reduce Gemini validation rounds when Deque is mentioned in future sessions.
-```
-
-**Example (conversation finding):**
-```
-I've updated clean-session-transcript to include the full File → Download path. 
-This should reduce confusion about where to find the export option.
-```
-
-### Step 4: Include in PR
-
-The skill file will be committed alongside the main work (e.g., session transcript)
-
-**Commit message will reference skill improvement:**
-```
-docs(sessions): add cleaned transcript for 2026-05-13 CoP session
-
-Also includes improvements to clean-session-transcript based on scribe retrospective.
-```
+---
 
 ## What to Edit vs. What NOT to Edit
 
@@ -280,133 +128,55 @@ Also includes improvements to clean-session-transcript based on scribe retrospec
 
 | Type | Example |
 |------|---------|
-| Missing ASR mishears | Add "Deque → DQ" to Known ASR Mishears table |
-| Missing steps | Add "Create sessions/ dir if needed" |
-| Unclear wording | "Export file" → "File → Download → Markdown" |
-| Edge cases | Add handling for "file already exists" |
-| Prompt instructions | Clarify "check for patterns AND individual errors" |
-| Examples | Update path to match actual file location |
+| Missing ASR mishear | Add "Deque → DQ/deck" to technical terms table |
+| Missing client name | Add "Cars.com → [Automotive Client]" to client table |
+| Unclear step wording | "Export file" → "File → Download → Markdown (.md)" |
+| Missing edge case | Add handling for speaker name that appears two ways |
 
 ### DO NOT Edit
 
-| Type | Why Not | Example |
-|------|---------|---------|
-| Restructuring | Too big for this PR | Moving sections, changing format |
-| Features | User didn't request | Adding new functionality |
-| Working instructions | Could break things | Removing steps that work fine |
-| Unrelated improvements | Out of scope | Fixing typos unrelated to friction |
+| Type | Why Not |
+|------|---------|
+| Restructuring tables | Too big, needs its own PR |
+| Unrequested features | Out of scope |
+| Working instructions that didn't cause friction | Could break things |
+| Content in `scribe-workflow/SKILL.md` that belongs in `prepare-cop-notes` | Wrong file |
 
-## Example Retrospectives
+---
 
-### Example 1: Gemini Finding + Conversation Friction
+## Writing the .tmp/ PR Summary
 
-**Step 5 finding:**
-```
-User: "Gemini kept missing 'Deque' → 'DQ'. Had to run validation 3 times."
-```
+After collecting findings (whether or not any skill edits were made), write `.tmp/retro-YYYY-MM-DD.md`:
 
-**Conversation friction:**
-```
-User asked "Which path should I use?" 3 times
-User selected Path A but meant Path B
-```
+```markdown
+## Manual Fixes
 
-**Retrospective:**
-```
-Thanks for sharing that finding. I'll propose adding "Deque → DQ" to the Known ASR Mishears table.
+| Type | Found As | Corrected To |
+|---|---|---|
+| Client name | "Cars.com" | "[Automotive Client]" |
+| Speaker name | "Sean" | "Shawn" |
+| Certification | "CPAC" | "CPACC" |
 
-I also noticed the path selection was unclear (we went back and forth a few times). 
-
-Would you like me to update:
-• clean-session-transcript: Add "Deque → DQ" to Known ASR Mishears table
-• clean-session-transcript: Add decision tree for path selection
-
-Should I include these improvements in the PR?
+_Added to prepare-cop-notes/SKILL.md tables for future sessions._
 ```
 
-**If approved, edit both sections** and explain:
-```
-Retrospective completed. I've updated clean-session-transcript:
-• Added "Deque → DQ/deck" to Known ASR Mishears table (will reduce Gemini validation rounds)
-• Added decision tree for A/B path selection (clearer upfront guidance)
+If nothing was fixed manually:
 
-These changes will be included in the PR.
-```
+```markdown
+## Manual Fixes
 
-### Example 2: Only Gemini Finding
-
-**Step 5 finding:**
-```
-User: "The prompt worked well, but I noticed 'ARIA' kept getting transcribed as 'area'. 
-Not in the current list."
+None — Claude's review caught everything.
 ```
 
-**Conversation:** Smooth flow, no clarifications needed
+Tell the scribe: "PR summary saved to `.tmp/retro-YYYY-MM-DD.md`. Paste it into the Manual Fixes section of your PR description."
 
-**Retrospective:**
+---
+
+## Timing
+
+**When to invoke:** After `/prepare-cop-notes` completes and scribe has confirmed all corrections, before `/using-git`.
+
+**Flow:**
 ```
-Thanks for that finding. I'll add "ARIA → area" to the Known ASR Mishears table.
-
-Did you notice any other friction points in the workflow itself?
+/prepare-cop-notes → corrections confirmed → /scribe-retrospective → /using-git
 ```
-
-**User response:** "Nope, all good!"
-
-**Output:**
-```
-Great! I've updated clean-session-transcript to add "ARIA → area" to the Known ASR Mishears table. 
-This will be included in the PR.
-```
-
-### Example 3: No Findings
-
-**Step 5 response:**
-```
-User: "No major issues — the prompts worked well this time."
-```
-
-**Conversation:** Smooth flow, no clarifications needed
-
-**Retrospective:**
-```
-Retrospective: Any friction points from this session that we should smooth out?
-```
-
-**User response:** "Nope, looks good!"
-
-**Output:**
-```
-Great! No improvements identified — proceeding to git operations.
-```
-
-## Timing and Flow
-
-**When to invoke:**
-- After main workflow completes (transcript cleaned, summary generated, etc.)
-- Before git operations begin
-- When user has confirmed main work is done
-
-**When NOT to invoke:**
-- Mid-workflow (interrupts flow)
-- After git operations start (too late to include in PR)
-- If user is clearly in a rush (respect their time)
-
-**Flow integration:**
-```
-Main workflow → Collect Gemini findings → Scan conversation → Present all findings → Git operations
-```
-
-**If retrospective adds edits:**
-```
-Main workflow → Collect Gemini findings → Scan conversation → Apply skill edits → Git operations (includes skill files)
-```
-
-## Summary
-
-The scribe retrospective focuses on **preventing future friction** by:
-1. Collecting step 5 findings (systematic issues from Gemini validation)
-2. Scanning conversation (one-off friction in this session)
-3. Proposing targeted edits (add terms, clarify steps, handle edge cases)
-4. Including improvements in the same PR (workflow + skill updates together)
-
-The goal is continuous improvement with minimal overhead — capture learnings while they're fresh, apply them immediately, and make the next scribe session smoother.
