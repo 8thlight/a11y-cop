@@ -68,9 +68,11 @@ When helping with this repository:
 ### Scribe Workflow
 
 1. Use Gemini Live for transcription during sessions
-2. Process transcript using `/transcript-processing` skill in Claude Code
+2. Process notes using `/scribe-workflow` skill in Claude Code (runs `/prepare-cop-notes`, `/scribe-retrospective`, and `/using-git`)
 3. Post summary to Slack within 48 hours
-4. Create PR with cleaned transcript to `sessions/`
+4. Create PR with cleaned notes to `sessions/`
+
+**Keeping workflow docs in sync:** `docs/SCRIBE-WORKFLOW.md` (human-facing reference) and `.claude/skills/scribe-workflow/SKILL.md` (Claude-facing skill) describe the same workflow. When updating one, update the other.
 
 ### File Naming Conventions
 
@@ -110,7 +112,7 @@ Scopes: sessions, artifacts, decisions, charter
 - Target: Reduce accessibility specialist bottleneck from 60-80% to 20-30%
 - Goal: Create 6 reusable artifacts by December 2026
 
-### When Processing Transcripts
+### When Processing Transcripts and Notes
 
 **Common ASR mishears to fix:**
 - "8th Light" often transcribed as "a flight", "8 light", "eighth light"
@@ -121,7 +123,6 @@ Scopes: sessions, artifacts, decisions, charter
 
 **Speaker name normalization:**
 - Use consistent full names throughout (not "John" in one place, "J" elsewhere)
-- Remove filler words and false starts while preserving meaning
 - Extract: decisions made, action items with owners, artifacts created, parking lot items
 
 ### When Creating Artifacts

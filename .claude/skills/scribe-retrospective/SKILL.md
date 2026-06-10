@@ -1,95 +1,122 @@
 ---
 name: scribe-retrospective
 description: >
-  Use when CoP scribe workflow has completed. Collects Gemini validation findings
-  (step 5 friction points), analyzes conversation for friction signals, generates
-  improvement suggestions, and applies approved changes to workflow skills.
+  Use after committing a CoP session transcript. Asks if you fixed anything
+  manually after Claude's review and updates skill tables if needed.
 ---
 
 # Scribe Retrospective
 
-Automated post-execution analysis to identify friction points and continuously improve CoP scribe workflow skills. See [IMPLEMENTATION.md](IMPLEMENTATION.md) for detailed friction signals, analysis criteria, and edge case handling.
+Automated post-session analysis to identify friction points and capture anything Claude missed — feed it back into the workflow for next time.
+
+**Before proceeding:** Read `.claude/skills/scribe-retrospective/IMPLEMENTATION.md` for friction signal patterns, routing examples, and edge case handling.
 
 ## When to Use
 
-Invoke when CoP scribe workflow has just completed and the user is about to move to the next phase (typically git operations).
-
-**Timing:** Run AFTER main workflow completes, BEFORE git operations
+After Step 3 (Transform and Review Notes), before Step 5 (Commit and Create PR).
 
 ## Core Pattern
 
-1. **Collect Gemini validation findings**: Ask user for step 5 findings (friction points from prompt validation iteration)
-2. **Apply adjustments**: Based on findings, propose improvements to workflow skills
-3. **Scan conversation**: Look for additional friction signals (corrections, clarifications, repeated steps)
-4. **Present all findings**: "Retrospective analysis complete. Improvements: [list]. Apply? (yes/no)"
-5. **If approved**: Read skill files → apply edits → explain changes → stage for PR
-6. **If declined**: Proceed without changes
+1. Ask what was fixed manually
+2. Passively scan the conversation for friction signals (do not ask the scribe to do this)
+3. If fixes or friction found, propose table updates
+4. Confirm and apply
 
-## Step 1: Gemini Validation Findings
+---
 
-Before scanning for conversation friction, explicitly ask for the findings from step 5:
+## Step 1: Ask
 
 ```
-Before we proceed, can you share the list of findings from step 5 
-(the friction points you identified during the Gemini prompt validation iteration)?
+After Claude's review in Step 3, did you manually fix anything in the session notes?
 
-These might include:
-• Missed/misheard words that weren't in the find/replace list
-• Patterns that required multiple correction rounds
-• Ambiguous phrases that slowed validation
-• Any other friction during the Gemini prompt refinement
+For example:
+• A client name Claude didn't catch
+• A technical term or ASR mishear not in the tables
+• A speaker name inconsistency
+• Any PII or sensitive content Claude missed
 
-If there were no significant findings, just let me know!
+If nothing — just say "no" and we'll move on.
 ```
 
-**Wait for user response before proceeding to conversation scan.**
+**If no:** Proceed to conversation scan. If nothing found there either, respond "No improvements identified — proceed to Step 5 (Commit and PR)."
 
-### Processing Findings
+**If yes:** Continue to Step 2.
 
-For each finding provided:
-1. Determine which skill(s) it affects (e.g., `clean-session-transcript`, `scribe-workflow`, `prompt-templates`)
-2. Map to specific sections (find/replace lists, validation steps, prompts)
-3. Draft edits (add terms, clarify instructions, update examples)
+---
 
-**Include these edits in the retrospective presentation** (Step 4) alongside conversation-based findings.
+## Step 2: Map Findings to Tables
 
-## Friction Signals
+For each item the scribe fixed, identify which skill owns that concern. The principle: `scribe-workflow/SKILL.md` is the orchestrator — it says which skills to run in what order, not how to review content. Detailed tables and review logic live in the skill that does the work.
 
-| Type | Examples |
-|------|----------|
-| Gemini validation | Missed words, patterns requiring multiple rounds, ambiguous phrases |
-| Conversation | "Wait, I meant...", "How do I...?", multiple clarifications |
-| Workflow | Repeated steps, duplicate info provided, incorrect assumptions |
+| Finding Type | Target File |
+|---|---|
+| Client name or project name | `prepare-cop-notes/SKILL.md` — "Other items to check" → client names table |
+| Technical term or ASR mishear | `prepare-cop-notes/SKILL.md` — "Technical terms and ASR mishears" table |
+| Speaker name variation | `prepare-cop-notes/SKILL.md` — "Names to check" section |
+| PII pattern | `prepare-cop-notes/SKILL.md` — PII bullet |
+| Other sensitivity | `prepare-cop-notes/SKILL.md` — "Open-ended scan" bullets |
+| Step ordering or which skill to invoke | `scribe-workflow/SKILL.md` — orchestration only |
+| Git/commit/PR conventions | `using-git/SKILL.md` or `using-git/IMPLEMENTATION.md` |
 
-See [IMPLEMENTATION.md](IMPLEMENTATION.md) for complete list.
+Draft the proposed additions (new rows or bullet points only — do not restructure).
 
-## Analysis Process
+---
 
-**Collect Gemini findings** → scan conversation for friction → **Generate** → map to sections, draft edits → **Present** → single summary with all changes → **Apply** → if approved, edit and stage files
+## Step 3: Present and Apply
 
-## Edit Guidelines
+Show all proposed changes in a single summary:
 
-**Do edit:** Missing steps, unclear wording, edge cases, outdated examples, missing find/replace terms  
-**Don't edit:** Restructuring, unrequested features, working instructions
+```
+Proposed skill updates:
+
+• [table name]: add row "[garbled form]" → "[correct form]"
+• ...
+
+Apply these changes? (yes/no)
+```
+
+**If yes:** Edit the appropriate skill file (see table above) with the new rows/entries. Confirm what was added and where.
+
+**If no:** "Findings noted, not applied — proceed to Step 5 (Commit and PR)."
+
+---
+
+## Step 4: Write PR Summary
+
+Whether or not skill tables were updated, write a summary file to `.tmp/retro-YYYY-MM-DD.md` (replacing YYYY-MM-DD with the session date). The scribe will paste this into the PR description.
+
+```markdown
+## Manual Fixes
+
+The following items were caught manually after Claude's review and corrected before commit:
+
+| Type | Found As | Corrected To |
+|---|---|---|
+| [Mishear / Client name / PII / etc.] | "[original text]" | "[corrected text]" |
+
+_These have been added to the prepare-cop-notes skill tables for future sessions._
+```
+
+If nothing was fixed manually, write:
+
+```markdown
+## Manual Fixes
+
+None — Claude's review caught everything.
+```
+
+Tell the scribe: "PR summary saved to `.tmp/retro-YYYY-MM-DD.md`. Paste it into the Manual Fixes section of your PR description."
+
+---
 
 ## Critical Rules
 
-- ALWAYS start with Gemini validation findings (step 5)
-- NEVER ask user to identify conversation friction (automatic analysis)
-- Single confirmation: "Apply these changes? (yes/no)"
-- Only propose edits for concrete friction in THIS session
-- Present ALL changes before asking approval
-
-## Quick Reference
-
-| Outcome | Output |
-|---------|--------|
-| Approved | "Updated: [skill]: [changes]. Included in PR." |
-| None found | "No improvements identified — proceeding." |
-| Declined | "Findings noted but not applied — proceeding." |
+- Conversation scan is passive — never ask the scribe to identify friction signals, do it yourself
+- Never restructure existing tables, only append
+- Present ALL changes before asking for approval
+- If nothing to update, say so and move on immediately
 
 ## Related Skills
 
-- **`/scribe-workflow`** — Invokes this retrospective before git operations
-- **`/clean-session-transcript`** — Common target for improvements
-- **`/using-git`** — Runs after retrospective completes
+- **`/scribe-workflow`** — calls this skill at Step 4
+- **`/using-git`** — used at Step 5 after this completes

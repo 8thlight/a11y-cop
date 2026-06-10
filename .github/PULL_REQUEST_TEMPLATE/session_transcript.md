@@ -1,56 +1,33 @@
-# Session Transcript: YYYY-MM-DD
+## Session Notes: YYYY-MM-DD
 
-## Session Summary
 
-<!-- Brief 2-3 sentence summary of what was discussed -->
+- Add session notes. See `sessions/` folder for summary notes.
 
-## Topics Covered
 
-<!-- Bullet list of main topics/problems addressed -->
+<!--
+Example for more flavor (from 2026-05-27):
 
-- 
-- 
-- 
-
-## Decisions Made
-
-<!-- List any decisions or action items from the session, or write "None" -->
-
-- 
-- 
-
-## Missed Items for Prompt Improvement
-
-<!-- CRITICAL: Document any mishears or confidential content that were caught in Step 5 (Final Scan) but NOT caught by the standard validation/curation prompts. These will be added to improve future scribe workflows. -->
-
-<!-- For each missed item, use this format:
-
-**Missed Item:** [correct term/name]
-**Appeared as:** [how it was transcribed]
-**Search pattern:** [how to find it]
-**Fix:** [correct replacement or redaction strategy]
-**Type:** [Mishear | Confidential Content]
-
-Example:
-**Missed Item:** Axe DevTools
-**Appeared as:** "access dev tools"
-**Search pattern:** "access dev tools"
-**Fix:** Replace with "Axe DevTools"
-**Type:** Mishear (product name)
+- Add session notes for 2026-05-27 — see [sessions/2026-05-27-session-notes.md](https://github.com/8thlight/a11y-cop/blob/transcript/2026-05-27-cop-session/sessions/2026-05-27-session-notes.md) for full summary
+- Refactor scribe workflow: make scribe-workflow a thin orchestrator, consolidate review logic into prepare-cop-notes
 -->
 
-None identified, or:
+## Manual Fixes
 
-- 
+<!-- What the scribe corrected manually after Claude's review.
+     If nothing: "None — Claude's review caught everything." -->
+
+## Skill/Workflow Changes
+
+<!-- Any retro-driven changes to .claude/skills/ or docs/ in this PR.
+     If none: "None." -->
 
 ## Scribe Checklist
 
-Before submitting this PR, confirm:
-
-- [ ] All seven workflow steps completed (Calendar, File org, Validation, Curation, Final scan, Transformation, Commit/PR)
+- [ ] All workflow steps completed (Calendar, File org, Notes export, Transform + review, Retro, Commit, PR)
 - [ ] Speaker names consistent and correct throughout
-- [ ] ASR mishears corrected using validation prompt
-- [ ] No confidential content in committed version
+- [ ] ASR mishears and technical terms verified
+- [ ] Client names redacted with bracketed placeholders (e.g., `[Education Client]`)
+- [ ] No PII or confidential content in committed file
 - [ ] Only Notes tab exported (not full transcript)
 - [ ] Frontmatter includes correct date and attendees
 - [ ] File named correctly: `YYYY-MM-DD-session-notes.md`
