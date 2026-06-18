@@ -58,7 +58,9 @@ GitHub issue: [link]
 
 **How to participate:**
 - **Attend live** - Drop in for any part, full 90 minutes not required
-- **Participate async** - Submit problem statements via PR or Slack anytime. If you submit a problem, we do ask that you attend the session to discuss it if you're able, but submitting doesn't guarantee it will be addressed in the following meeting.
+- **Participate async** - Submit problem statements via PR or Slack anytime
+  - If you submit a problem, we ask that you attend the session to discuss it if you're able
+  - Submitting doesn't guarantee it will be addressed in the following meeting
 - **Follow along** - Session summaries with decisions and action items posted to #a11y-community-of-practice
 
 **Calendar invite:** Find "A11y CoP Working Session" on the global events calendar. Want automatic reminders? Ping me to be added to the invite list.
@@ -87,7 +89,9 @@ GitHub issue: https://github.com/8thlight/a11y-cop/issues/2
 
 **How to participate:**
 - **Attend live** - Drop in for any part, full 90 minutes not required
-- **Participate async** - Submit problem statements via PR or Slack anytime. If you submit a problem, we do ask that you attend the session to discuss it if you're able, but submitting doesn't guarantee it will be addressed in the following meeting.
+- **Participate async** - Submit problem statements via PR or Slack anytime
+  - If you submit a problem, we ask that you attend the session to discuss it if you're able
+  - Submitting doesn't guarantee it will be addressed in the following meeting
 - **Follow along** - Session summaries with decisions and action items posted to #a11y-community-of-practice
 
 **Calendar invite:** Find "A11y CoP Working Session" on the global events calendar. Want automatic reminders? Ping me to be added to the invite list.
@@ -97,7 +101,7 @@ See you there!
 
 ### Day-Before Reminder (Town Hall)
 
-**When:** Day before the session (e.g., Tuesday for a Wednesday session)
+**When:** Day before the session (e.g., Wednesday for a Thursday session)
 
 **Format:** Reply in the thread of the Monday announcement
 
@@ -322,30 +326,6 @@ Come join us!
 - Post decision summary in CoP channel
 - Tag problem submitter or follow up directly if clarification needed
 
-### Session Goes Long / Doesn't Finish Problem
-
-**CoP channel update:**
-
-```
-**Session Update - [Date]**
-
-We made progress on [problem] but didn't fully resolve it.
-
-**What we decided:**
-- [Decisions made so far]
-
-**What's still open:**
-- [Unresolved questions]
-
-**Next steps:**
-- Continue async in this thread, OR
-- Pick it up again at next session ([date])
-
-Thoughts?
-```
-
-**Don't force artificial closure.** If problem needs more time, say so.
-
 ## Success Metrics
 
 ### How We Know Communication Is Working
@@ -388,29 +368,6 @@ If any of these occur, revisit communication strategy:
 - **Zero problem submissions** for 2+ weeks → Messaging not normalizing async participation
 - **Multiple "what's the CoP about?"** questions in Town Hall threads → Value proposition unclear
 - **High calendar invite acceptance, low actual attendance** → Timing conflicts or value mismatch
-
-## Approval and Iteration
-
-**This plan will be:**
-
-1. Reviewed by CoP team via PR
-2. Presented to Shawn DeVries (executive sponsor) for input
-3. Implemented starting [date after approval]
-4. Reviewed quarterly alongside other CoP metrics
-5. Adjusted based on feedback and what's actually working
-
-**Open questions for review:**
-
-- Is Town Hall the right channel for regular announcements, or should we use Water Cooler?
-- Are message templates too casual / too formal?
-- What's missing from edge case handling?
-- Are success metrics the right ones to track?
-
-**Future additions:**
-
-- Practice meeting integration messaging (once we have practice-specific events scheduled)
-- "Vibe to Value: AI in the Open" drop-in messaging (when relevant AI governance topics emerge)
-- New member onboarding communication flow
 
 ---
 
