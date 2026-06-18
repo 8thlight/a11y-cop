@@ -21,9 +21,7 @@ This document defines how the Accessibility Community of Practice communicates a
 - Day-before reminders
 - One-off special events (training sessions, guest speakers, tool demos)
 
-**Why Town Hall:** Following successful patterns from other company working groups (e.g., Caroline's book club). Keeps CoP visible company-wide without being buried in general chatter.
-
-**Note:** This channel choice can be adjusted based on feedback during plan review.
+**Why Town Hall:** Following successful patterns from other company working groups (e.g., book club). Keeps CoP visible company-wide without being buried in general chatter.
 
 ### CoP Channel (#a11y-community-of-practice)
 
@@ -40,14 +38,7 @@ This document defines how the Accessibility Community of Practice communicates a
 ### Practice Channels
 
 **Use for:**
-- Practice-specific training events only
-- When content is tailored to one practice's tech stack or client needs
-- Examples: Enterprise practice-specific WCAG guidance, European practice multilingual a11y
-
-**Which practices:**
-- Enterprise Practice
-- European Engagements
-- Emerging Solutions
+- Practice-specific event communications only
 
 ## Message Templates
 
@@ -58,18 +49,19 @@ This document defines how the Accessibility Community of Practice communicates a
 **Template:**
 
 ```
-:a11y: A11y CoP Working Session :a11y:
+:wheelchair: A11y CoP Working Session :wheelchair:
 
 Hi all! Next working session: [Day, Date] at [Time ET/CT]
 
 **What we're tackling:** [Problem title with brief hook - why it matters]
 GitHub issue: [link]
 
-**Can't make it?** Submit problems anytime via PR or Slack - we solve together, you follow up async.
+**How to participate:**
+- **Attend live** - Drop in for any part, full 90 minutes not required
+- **Participate async** - Submit problem statements via PR or Slack anytime. If you submit a problem, we do ask that you attend the session to discuss it if you're able, but submitting doesn't guarantee it will be addressed in the following meeting.
+- **Follow along** - Session summaries with decisions and action items posted to #a11y-community-of-practice
 
-**Drop in for any part** - full 90 minutes not required. Join for the problem discussion, stay for artifact creation, or just lurk.
-
-**Want the calendar invite?** Ping me and I'll add you to the recurring event.
+**Calendar invite:** Find "A11y CoP Working Session" on the global events calendar. Want automatic reminders? Ping me to be added to the invite list.
 
 See you there!
 ```
@@ -86,18 +78,19 @@ See you there!
 **Example:**
 
 ```
-:a11y: A11y CoP Working Session :a11y:
+:wheelchair: A11y CoP Working Session :wheelchair:
 
 Hi all! Next working session: Wednesday, July 2nd at 10:30am ET / 9:30am CT
 
-**What we're tackling:** How do we spot accessibility issues earlier? Kelsey's mapping tools to disabilities they catch, and we're building a testing checklist engineers can actually use.
+**What we're tackling:** How do we spot accessibility issues earlier? We're mapping tools to disabilities they catch and building a testing checklist engineers can actually use.
 GitHub issue: https://github.com/8thlight/a11y-cop/issues/2
 
-**Can't make it?** Submit problems anytime via PR or Slack - we solve together, you follow up async.
+**How to participate:**
+- **Attend live** - Drop in for any part, full 90 minutes not required
+- **Participate async** - Submit problem statements via PR or Slack anytime. If you submit a problem, we do ask that you attend the session to discuss it if you're able, but submitting doesn't guarantee it will be addressed in the following meeting.
+- **Follow along** - Session summaries with decisions and action items posted to #a11y-community-of-practice
 
-**Drop in for any part** - full 90 minutes not required. Join for the problem discussion, stay for artifact creation, or just lurk.
-
-**Want the calendar invite?** Ping me and I'll add you to the recurring event.
+**Calendar invite:** Find "A11y CoP Working Session" on the global events calendar. Want automatic reminders? Ping me to be added to the invite list.
 
 See you there!
 ```
@@ -106,30 +99,22 @@ See you there!
 
 **When:** Day before the session (e.g., Tuesday for a Wednesday session)
 
+**Format:** Reply in the thread of the Monday announcement
+
 **Template:**
 
 ```
-:a11y: Reminder: CoP Working Session Tomorrow :a11y:
-
-Tomorrow [Time ET/CT] - [Problem title]
-
-Drop in for any part: [Meet link]
-
-Problem context: [GitHub issue link]
+Reminder: Tomorrow [Time ET/CT]
+[Meet link]
 ```
 
-**Keep it short** - this is a reminder, not a re-pitch.
+**Keep it minimal** - this is a thread reply to the original announcement.
 
 **Example:**
 
 ```
-:a11y: Reminder: CoP Working Session Tomorrow :a11y:
-
-Tomorrow 10:30am ET / 9:30am CT - Building an accessibility testing checklist
-
-Drop in for any part: https://meet.google.com/hmi-ujrh-rtm
-
-Problem context: https://github.com/8thlight/a11y-cop/issues/2
+Reminder: Tomorrow 10:30am ET / 9:30am CT
+https://meet.google.com/hmi-ujrh-rtm
 ```
 
 ### Special Training Event (Town Hall)
@@ -139,7 +124,7 @@ Problem context: https://github.com/8thlight/a11y-cop/issues/2
 **Template:**
 
 ```
-:a11y: [Event Type]: [Title] :a11y:
+:wheelchair: [Event Type]: [Title] :wheelchair:
 
 Hi all! [Brief introduction to what this is and why it matters]
 
@@ -158,7 +143,7 @@ Come join us!
 **Example:**
 
 ```
-:a11y: Live Demo: Screen Reader Testing :a11y:
+:wheelchair: Live Demo: Screen Reader Testing :wheelchair:
 
 Hi all! Ever wondered what your app actually sounds like to someone using a screen reader? We're doing a live exploration session - I'll screen share NVDA/VoiceOver walking through real web apps, showing what breaks and why.
 
@@ -174,98 +159,68 @@ Come join us!
 
 ### Session Follow-Up (CoP Channel)
 
-**When:** Within 48 hours of the session
+**When:** Immediately after the session ends
 
 **Template:**
 
 ```
-**Session Summary - [Date]**
+Hey folks, here is a post-working-session summary of action items we have decided on.
 
-**Problem:** [What we tackled]
+[Name]:
+• [Action item 1]
+• [Action item 2]
 
-**Key Decisions:**
-- [Decision 1]
-- [Decision 2]
+[Name]:
+• [Action item]
 
-**Artifacts Created/Updated:**
-- [Link to PR or file]
+[Context note if needed - e.g., "The above will be used to..."]
 
-**What's Still Open:**
-- [Unresolved question or parking lot item]
-
-**Action Items:**
-- [Owner] - [Task] - [Due date]
-
-Full transcript: [link to Google Drive or repo file if committed]
+Everyone:
+• [Group action item if applicable]
 ```
 
-**Purpose:** Keep non-attendees in the loop, document decisions for future reference.
-
-### Problem Submission Encouragement (CoP Channel)
-
-**When:** Weekly or bi-weekly, between sessions
-
-**Template:**
-
-```
-:thinking_face: Got an accessibility problem from your project?
-
-Submit it for our next working session:
-- **GitHub issue** (preferred): https://github.com/8thlight/a11y-cop/issues/new/choose
-- **Slack thread here** - we'll convert it to an issue
-
-Template: Context → What I've tried → Help needed → Desired outcome
-
-You don't need to attend the session - we solve it together and post the decision summary here.
-```
-
-**Purpose:** Keep problem pipeline active, normalize async participation.
-
-### Artifact Release (CoP Channel)
-
-**When:** When an artifact is ready for use
-
-**Template:**
-
-```
-:tada: New Artifact Available: [Artifact Name]
-
-**What it is:** [1-2 sentence description]
-**Use it when:** [Scenario]
-**Where to find it:** [Link to file in repo]
-
-This came out of Session [#] working on [problem]. Try it on your project and let us know what works / what's missing.
-```
+**Purpose:** Clear accountability - who is doing what and what we're expecting.
 
 **Example:**
 
 ```
-:tada: New Artifact Available: Accessibility Testing Checklist
+Hey folks, here is a post-working-session summary of action items we have decided on.
 
-**What it is:** A quick-reference checklist for manual accessibility testing during PR review - keyboard nav, screen reader basics, color contrast, zoom testing.
-**Use it when:** Reviewing frontend PRs or before merging a UI feature.
-**Where to find it:** https://github.com/8thlight/a11y-cop/blob/main/artifacts/testing-checklist.md
+Celeste:
+• Draft communication plan (will create PR for async input)
+• Present plan to executive sponsor for official approval
+• Invite all channel members to recurring event (done)
 
-This came out of Session 3 working on Kelsey's problem about spotting issues earlier. Try it on your project and let us know what works / what's missing.
+Kelsey:
+• Build tools → disabilities mapping resource (create PR for async contributions)
+
+The above will be used to plan a live exploration session with company-wide announcement.
+
+Rachael:
+• Move raw notes to a11y CoP shared drive
+• Clean up notes for repo
+
+Tim:
+• Confirm what's available for a11y testing with Cypress (free vs cloud version)
+
+Everyone:
+• Review and provide feedback on Communication Plan and Tools mapping PRs once announced
 ```
+
 
 ## Timing and Cadence
 
 ### For Biweekly Sessions
 
 - **Monday before session:** Town Hall announcement
-- **Day before session:** Town Hall reminder
-- **Within 48 hours after:** CoP channel follow-up
+- **Day before session:** Town Hall reminder (thread reply to Monday post)
+- **Immediately after session:** CoP channel action item summary
 
 ### For Special Events
 
 - **1 week before:** Town Hall announcement
-- **Day before:** Town Hall reminder
-- **Within 48 hours after:** CoP channel summary
-
-### Ongoing
-
-- **Weekly (between sessions):** CoP channel problem submission encouragement or artifact updates
+- **Day before:** Town Hall reminder (thread reply)
+- **Immediately after:** CoP channel summary
 
 ## Calendar Invite Strategy
 
@@ -291,7 +246,7 @@ This came out of Session 3 working on Kelsey's problem about spotting issues ear
 **Town Hall announcement:**
 
 ```
-:a11y: CoP Session Cancelled - [Date] :a11y:
+:wheelchair: CoP Session Cancelled - [Date] :wheelchair:
 
 Cancelling [day]'s session to avoid conflict with [reason - e.g., Apple WWDC, company event, facilitator out].
 
@@ -313,7 +268,7 @@ FYI - cancelled today's session due to [reason]. Next session [date]. If you had
 **Town Hall update (if change is significant):**
 
 ```
-:a11y: CoP Session Update - [Date] :a11y:
+:wheelchair: CoP Session Update - [Date] :wheelchair:
 
 Quick update: [day]'s session is now tackling [new problem] instead of [old problem].
 
@@ -337,7 +292,7 @@ Original problem ([link]) moved to backlog for future session.
 **Town Hall announcement (use special event template):**
 
 ```
-:a11y: Guest Speaker: [Name] on [Topic] :a11y:
+:wheelchair: Guest Speaker: [Name] on [Topic] :wheelchair:
 
 Hi all! We're excited to have [Name], [credentials/role], joining our next CoP session to discuss [topic].
 
