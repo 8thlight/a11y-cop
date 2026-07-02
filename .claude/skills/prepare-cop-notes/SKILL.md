@@ -1,6 +1,6 @@
 ---
 name: prepare-cop-notes
-version: 1.9.0
+version: 1.10.0
 description: >
   Use when a CoP scribe has exported the Notes tab from Google Docs as markdown 
   and needs to add frontmatter and save it to the sessions/ directory.
@@ -47,10 +47,10 @@ The exported Google Doc may contain two types of timestamp links that reference 
 - **Simple format:** ` ([00:05:12](#00:05:12))`
 - **Google Docs deep-link format:** ` ([00:05:12](?tab=t.xxxxx#heading=h.xxxxx))` — links to a specific heading in the transcript doc
 
-Create a working copy of the file in `/tmp/`, then call the timestamp removal script:
+Create a working copy of the file in `/tmp/`, then call the timestamp removal script. The script lives at the **repository root** (`<repo-root>/scripts/remove-timestamps.sh`), not inside the skill directory:
 ```bash
 cp <original-path> /tmp/a11y-cop-notes-working.md
-scripts/remove-timestamps.sh /tmp/a11y-cop-notes-working.md
+<repo-root>/scripts/remove-timestamps.sh /tmp/a11y-cop-notes-working.md
 ```
 
 The script handles both formats and modifies the file in place.
@@ -149,10 +149,10 @@ Check for garbled forms of technical terms. Unambiguous corrections (e.g., "a fl
 
 | Correct Term | Common Mishears |
 |---|---|
-| 8th Light | a flight, aflight, aphite, eighth alight, 8 light |
+| 8th Light | a flight, aflight, aphite, eighth alight, 8 light, A-Flight |
 | WCAG | W CAG, WAG, wicked, WKed, WKEG, we CAG |
 | CPACC | cpac, C-PAC, CPAC |
-| CoP | COP, cop |
+| CoP | COP, cop, coop |
 | Playwright | playright, play right |
 | axe | access, ax, acts (when referring to the testing tool) |
 | npm | mpm |
@@ -191,6 +191,8 @@ Check for garbled forms of technical terms. Unambiguous corrections (e.g., "a fl
   | Cars.com | Cars project, cars.com | `[Automotive Client]` |
 
   For clients not in the table, suggest replacing with `[Client Name]` or `[Project Name]` and prompt the scribe to confirm.
+
+- **Reference links** — the notes often mention repositories, GitHub issues, tools, or skills by name. Ask the scribe once, upfront: *"Do you have URLs for any repos, issues, or tools mentioned in the notes? Paste them all and I'll link the first mention of each."* Collecting them in one pass avoids drip-fed link additions after the file is saved.
 
 - **PII** — email addresses, phone numbers
 
