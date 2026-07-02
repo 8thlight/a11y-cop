@@ -1,7 +1,7 @@
 ---
 title: Disability Awareness Reference
 created: 2026-06-23
-last_updated: 2026-06-23
+last_updated: 2026-07-02
 problem_addressed: >
   Teams need a shared, cited reference for disability categories, the functional
   needs within each, the tools people actually use, and how common each is, so
@@ -13,8 +13,8 @@ status: draft
 
 A starting reference for teams at 8th Light. For each disability category it
 gives an overview of how many people are affected, then maps the functional
-needs within that category to the tools people use and what we do about them.
-Every figure is cited.
+needs within that category to the tools people use and what we can do about
+them. Every figure is cited.
 
 The central idea: **solutions map to functional needs, not to diagnoses.** Many
 different conditions converge on the same need, and one condition can create
@@ -22,6 +22,15 @@ several needs. ADHD and autism both sit under "cognitive and learning," but a
 person with ADHD needs help staying focused while a person on the autism
 spectrum needs predictability and control over sensory input. The mapping
 tables below are organized around those needs.
+
+The **References** column links each "what we can do" entry to the WCAG 2.2
+success criterion (SC) that covers it, via the W3C's Understanding documents.
+Unmarked criteria are Level A or AA, within the CoP's WCAG 2.2 AA target.
+Criteria marked **(AAA)** go beyond that target: treat them as good practice,
+not a compliance requirement. Where WCAG has no criterion for a need, the
+column links W3C guidance instead ([COGA](https://www.w3.org/TR/coga-usable/)
+for cognitive needs, [WAI](https://www.w3.org/WAI/people-use-web/abilities-barriers/speech/)
+for speech).
 
 ## How to read the prevalence figures
 
@@ -78,12 +87,12 @@ Audio without a text or visual equivalent is a closed door.
 
 **Functional needs:**
 
-| Functional need | Conditions (examples) | Tools they use | What we do |
-| --- | --- | --- | --- |
-| Cannot hear audio content | deafness, hard of hearing | captions, transcripts, CART | caption every video, transcribe audio, never make sound the only signal |
-| Hard to separate speech from background | hard of hearing | hearing aids, volume controls | keep foreground audio clear, give volume and pause controls |
-| Sign language is the primary language | deafness (sign-first users) | sign language interpretation | provide signed video for key content, supplement text with images |
-| No sight and no hearing | deaf-blindness | refreshable braille display | ensure braille and screen-reader compatibility, give text alternatives |
+| Functional need | Conditions (examples) | Tools they use | What we can do | References |
+| --- | --- | --- | --- | --- |
+| Cannot hear audio content | deafness, hard of hearing | captions, transcripts, CART | caption every video, transcribe audio, never make sound the only signal | [SC 1.2.1](https://www.w3.org/WAI/WCAG22/Understanding/audio-only-and-video-only-prerecorded.html), [SC 1.2.2](https://www.w3.org/WAI/WCAG22/Understanding/captions-prerecorded.html), [SC 1.2.4](https://www.w3.org/WAI/WCAG22/Understanding/captions-live.html) |
+| Hard to separate speech from background | hard of hearing | hearing aids, volume controls | keep foreground audio clear, give volume and pause controls | [SC 1.4.2](https://www.w3.org/WAI/WCAG22/Understanding/audio-control.html), [SC 1.4.7 (AAA)](https://www.w3.org/WAI/WCAG22/Understanding/low-or-no-background-audio.html) |
+| Sign language is the primary language | deafness (sign-first users) | sign language interpretation | provide signed video for key content, supplement text with images | [SC 1.2.6 (AAA)](https://www.w3.org/WAI/WCAG22/Understanding/sign-language-prerecorded.html) |
+| No sight and no hearing | deaf-blindness | refreshable braille display | ensure braille and screen-reader compatibility, give text alternatives | [SC 1.1.1](https://www.w3.org/WAI/WCAG22/Understanding/non-text-content.html), [SC 1.3.1](https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships.html) |
 
 ---
 
@@ -109,14 +118,14 @@ were not available from WHO, CDC, or NIH at the time of writing.
 
 **Functional needs:**
 
-| Functional need | Conditions (examples) | Tools they use | What we do |
-| --- | --- | --- | --- |
-| Difficulty reading text | dyslexia, learning disabilities, low literacy | text-to-speech with synced highlighting, adjustable fonts and spacing | plain language, readable fonts, adjustable text spacing |
-| Difficulty staying focused | ADHD | focus and reminder aids | minimize distractions, no autoplay or auto-advancing content, one clear task at a time |
-| Difficulty with memory | dementia, mild cognitive impairment, brain injury, age-related forgetfulness | password managers, reminders | do not rely on recall, keep context visible, show progress, save state |
-| Difficulty with unpredictable or sensory-heavy interfaces | autism spectrum | customizable colors, reduce-motion settings | predictable and consistent layout, literal language, user control over sound and motion |
-| Difficulty processing complex information | intellectual disabilities | text-to-speech, plain-language content | simple words, short steps, images that support the text |
-| Difficulty with numbers | dyscalculia | calculators, clear number formatting | avoid forcing mental math, format numbers and dates clearly |
+| Functional need | Conditions (examples) | Tools they use | What we can do | References |
+| --- | --- | --- | --- | --- |
+| Difficulty reading text | dyslexia, learning disabilities, low literacy | text-to-speech with synced highlighting, adjustable fonts and spacing | plain language, readable fonts, adjustable text spacing | [SC 1.4.12](https://www.w3.org/WAI/WCAG22/Understanding/text-spacing.html), [SC 3.1.5 (AAA)](https://www.w3.org/WAI/WCAG22/Understanding/reading-level.html), [COGA](https://www.w3.org/TR/coga-usable/) |
+| Difficulty staying focused | ADHD | focus and reminder aids | minimize distractions, no autoplay or auto-advancing content, one clear task at a time | [SC 2.2.2](https://www.w3.org/WAI/WCAG22/Understanding/pause-stop-hide.html), [SC 2.2.4 (AAA)](https://www.w3.org/WAI/WCAG22/Understanding/interruptions.html) |
+| Difficulty with memory | dementia, mild cognitive impairment, brain injury, age-related forgetfulness | password managers, reminders | do not rely on recall, keep context visible, show progress, save state | [SC 3.3.7](https://www.w3.org/WAI/WCAG22/Understanding/redundant-entry.html), [SC 3.3.8](https://www.w3.org/WAI/WCAG22/Understanding/accessible-authentication-minimum.html), [SC 2.2.1](https://www.w3.org/WAI/WCAG22/Understanding/timing-adjustable.html) |
+| Difficulty with unpredictable or sensory-heavy interfaces | autism spectrum | customizable colors, reduce-motion settings | predictable and consistent layout, literal language, user control over sound and motion | [SC 3.2.3](https://www.w3.org/WAI/WCAG22/Understanding/consistent-navigation.html), [SC 3.2.4](https://www.w3.org/WAI/WCAG22/Understanding/consistent-identification.html), [SC 2.3.3 (AAA)](https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html) |
+| Difficulty processing complex information | intellectual disabilities | text-to-speech, plain-language content | simple words, short steps, images that support the text | [SC 3.1.5 (AAA)](https://www.w3.org/WAI/WCAG22/Understanding/reading-level.html), [COGA](https://www.w3.org/TR/coga-usable/) |
+| Difficulty with numbers | dyscalculia | calculators, clear number formatting | avoid forcing mental math, format numbers and dates clearly | [COGA](https://www.w3.org/TR/coga-usable/) |
 
 ---
 
@@ -139,12 +148,12 @@ direct match to the US mobility figure.
 
 **Functional needs:**
 
-| Functional need | Conditions (examples) | Tools they use | What we do |
-| --- | --- | --- | --- |
-| Imprecise pointing, no fine motor control | tremor, arthritis, repetitive stress injury, reduced dexterity | voice control (for example Dragon), large pointing aids | large click targets, no drag-only or precise-gesture actions |
-| No hand use at all | quadriplegia, advanced multiple sclerosis, amputation | switches, sip-and-puff, eye tracking (for example Tobii) | full keyboard and switch operability, no mouse-only interactions |
-| Low stamina or chronic pain | fibromyalgia, multiple sclerosis | speech recognition, save-progress features | minimize steps, generous or adjustable timeouts, autosave |
-| Photosensitivity | seizure disorders | reduce-motion settings | no flashing more than 3 times per second, honor prefers-reduced-motion |
+| Functional need | Conditions (examples) | Tools they use | What we can do | References |
+| --- | --- | --- | --- | --- |
+| Imprecise pointing, no fine motor control | tremor, arthritis, repetitive stress injury, reduced dexterity | voice control (for example Dragon), large pointing aids | large click targets, no drag-only or precise-gesture actions | [SC 2.5.8](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html), [SC 2.5.7](https://www.w3.org/WAI/WCAG22/Understanding/dragging-movements.html), [SC 2.5.1](https://www.w3.org/WAI/WCAG22/Understanding/pointer-gestures.html) |
+| No hand use at all | quadriplegia, advanced multiple sclerosis, amputation | switches, sip-and-puff, eye tracking (for example Tobii) | full keyboard and switch operability, no mouse-only interactions | [SC 2.1.1](https://www.w3.org/WAI/WCAG22/Understanding/keyboard.html), [SC 2.1.3 (AAA)](https://www.w3.org/WAI/WCAG22/Understanding/keyboard-no-exception.html) |
+| Low stamina or chronic pain | fibromyalgia, multiple sclerosis | speech recognition, save-progress features | minimize steps, generous or adjustable timeouts, autosave | [SC 2.2.1](https://www.w3.org/WAI/WCAG22/Understanding/timing-adjustable.html), [SC 2.2.6 (AAA)](https://www.w3.org/WAI/WCAG22/Understanding/timeouts.html) |
+| Photosensitivity | seizure disorders | reduce-motion settings | no flashing more than 3 times per second, honor prefers-reduced-motion | [SC 2.3.1](https://www.w3.org/WAI/WCAG22/Understanding/three-flashes-or-below-threshold.html), [SC 2.3.3 (AAA)](https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html) |
 
 ---
 
@@ -166,11 +175,11 @@ Do not add them.
 
 **Functional needs:**
 
-| Functional need | Conditions (examples) | Tools they use | What we do |
-| --- | --- | --- | --- |
-| Cannot use voice reliably or at all | muteness, severe dysarthria, apraxia of speech | speech-generating devices, AAC, text input | never require voice as the only input, give text alternatives to voice commands |
-| Speech understood by people but not by voice recognition | dysarthria, cluttering | typed and text-based input | do not gate features on voice recognition, always offer typed input |
-| Needs more time, no time pressure to speak | stuttering | text chat | offer text support channels, avoid timed voice prompts |
+| Functional need | Conditions (examples) | Tools they use | What we can do | References |
+| --- | --- | --- | --- | --- |
+| Cannot use voice reliably or at all | muteness, severe dysarthria, apraxia of speech | speech-generating devices, AAC, text input | never require voice as the only input, give text alternatives to voice commands | [WAI: Speech](https://www.w3.org/WAI/people-use-web/abilities-barriers/speech/) |
+| Speech understood by people but not by voice recognition | dysarthria, cluttering | typed and text-based input | do not gate features on voice recognition, always offer typed input | [WAI: Speech](https://www.w3.org/WAI/people-use-web/abilities-barriers/speech/) |
+| Needs more time, no time pressure to speak | stuttering | text chat | offer text support channels, avoid timed voice prompts | [WAI: Speech](https://www.w3.org/WAI/people-use-web/abilities-barriers/speech/), [SC 2.2.1](https://www.w3.org/WAI/WCAG22/Understanding/timing-adjustable.html) |
 
 ---
 
@@ -190,22 +199,26 @@ color alone to carry meaning, create barriers here.
 
 **Functional needs:**
 
-| Functional need | Conditions (examples) | Tools they use | What we do |
-| --- | --- | --- | --- |
-| No usable sight | blindness | screen readers (JAWS, NVDA, VoiceOver, TalkBack, Narrator), braille displays | semantic markup, alt text, full keyboard operation, screen-reader testing |
-| Reduced acuity, needs magnification | low vision | screen magnification (ZoomText, built-in OS zoom) | text resizable to 200% without loss, reflow, scalable layout |
-| Light or contrast sensitivity | low vision (photophobia), contrast sensitivity loss | high-contrast and dark modes | meet contrast ratios, offer dark mode, adjustable brightness |
-| Cannot distinguish some colors | color vision deficiency | browser and OS color adjustments | never use color as the only signal, pair color with icon and label |
-| No sight and no hearing | deaf-blindness | refreshable braille display | braille and screen-reader support, text alternatives for all media |
+| Functional need | Conditions (examples) | Tools they use | What we can do | References |
+| --- | --- | --- | --- | --- |
+| No usable sight | blindness | screen readers (JAWS, NVDA, VoiceOver, TalkBack, Narrator), braille displays | semantic markup, alt text, full keyboard operation, screen-reader testing | [SC 1.1.1](https://www.w3.org/WAI/WCAG22/Understanding/non-text-content.html), [SC 1.3.1](https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships.html), [SC 2.1.1](https://www.w3.org/WAI/WCAG22/Understanding/keyboard.html), [SC 4.1.2](https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html) |
+| Reduced acuity, needs magnification | low vision | screen magnification (ZoomText, built-in OS zoom) | text resizable to 200% without loss, reflow, scalable layout | [SC 1.4.4](https://www.w3.org/WAI/WCAG22/Understanding/resize-text.html), [SC 1.4.10](https://www.w3.org/WAI/WCAG22/Understanding/reflow.html) |
+| Light or contrast sensitivity | low vision (photophobia), contrast sensitivity loss | high-contrast and dark modes | meet contrast ratios, offer dark mode, adjustable brightness | [SC 1.4.3](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html), [SC 1.4.11](https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html) |
+| Cannot distinguish some colors | color vision deficiency | browser and OS color adjustments | never use color as the only signal, pair color with icon and label | [SC 1.4.1](https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html) |
+| No sight and no hearing | deaf-blindness | refreshable braille display | braille and screen-reader support, text alternatives for all media | [SC 1.1.1](https://www.w3.org/WAI/WCAG22/Understanding/non-text-content.html), [SC 1.2.1](https://www.w3.org/WAI/WCAG22/Understanding/audio-only-and-video-only-prerecorded.html) |
 
 ---
 
 ## Sources
 
 All URLs were fetched and confirmed to load on 2026-06-23. Figures are quoted as
-each source states them.
+each source states them. The WCAG and W3C guidance links in the References
+columns were added and confirmed to load on 2026-07-02.
 
 - W3C WAI, Diverse Abilities and Barriers: https://www.w3.org/WAI/people-use-web/abilities-barriers/
+- W3C WAI, WCAG 2.2 Understanding documents (linked per success criterion in the tables): https://www.w3.org/WAI/WCAG22/Understanding/
+- W3C, Making Content Usable for People with Cognitive and Learning Disabilities (COGA): https://www.w3.org/TR/coga-usable/
+- W3C WAI, How People with Disabilities Use the Web, Speech: https://www.w3.org/WAI/people-use-web/abilities-barriers/speech/
 - WHO, Deafness and hearing loss: https://www.who.int/news-room/fact-sheets/detail/deafness-and-hearing-loss
 - WHO, Disability and health: https://www.who.int/news-room/fact-sheets/detail/disability-and-health
 - WHO, Autism spectrum disorders: https://www.who.int/news-room/fact-sheets/detail/autism-spectrum-disorders
