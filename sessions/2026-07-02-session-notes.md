@@ -40,23 +40,15 @@ The team decided to focus development within the Light Factory repository for co
 
 - [x] \[Kelsey Roy\] Post Notes: Post meeting notes to the CoP repo early next week.
 
-- [ ] \[Rani Zilpelwar\] Compare Transcripts: Run Granola to generate and compare meeting transcript outputs during future sessions.
-
 - [ ] \[Daisy Mølving\] Review PR: Evaluate the accessibility tooling pull request to distinguish between existing playbook content and new information.
-
-- [ ] \[Daisy Mølving\] Link Playbook: Link the accessibility mapping directly to the playbook markdown file in GitHub.
-
-- [ ] \[Celeste Aronow\] Submit Skill: Create a pull request on Light Factory for the custom review skill.
-
-- [ ] \[Celeste Aronow\] Integrate Plugin: Incorporate the community access plugin into Light Factory to enable accessibility checks.
 
 - [ ] \[Celeste Aronow\] Setup Light Factory: Install software locally and create a new branch.
 
 - [ ] \[Celeste Aronow\] Implement Review Process: Add the code review agent with accessibility checks and optimized specialist modules to the repository. Reference source locations and dates for all copied code.
 
-- [ ] \[Daisy Mølving\] Add Design Statements: Incorporate problem statements gathered from team brainstorms.
+- [ ] \[Celeste Aronow\] Submit Skill: Create a pull request on Light Factory for the custom review skill.
 
-- [ ] \[Daisy Mølving\] Invite Contributors: Recruit interested individuals to join accessibility meetings and encourage them to submit personal accessibility problem statements.
+- [ ] \[Daisy Mølving\] Add Design Statements: Incorporate problem statements gathered from team brainstorms.
 
 - [ ] \[Celeste Aronow\] Issue Housekeeping: Clean up and organize existing problem statements to ensure they have complete documentation.
 
