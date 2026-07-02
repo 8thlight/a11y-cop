@@ -46,6 +46,8 @@ Interactive guide for processing CoP meeting notes from Google Calendar through 
 3. In the export dialog, select **"Current Tab"**
 4. Save to your local machine
 
+**Note:** Pasting the Google Doc URL into Claude instead of exporting may fail (Drive connector auth and file-picker access are unreliable). If the URL route isn't working, don't troubleshoot — just export manually as above.
+
 **Ready to continue?** Type `continue` or `next` when the file is saved.
 
 ---
